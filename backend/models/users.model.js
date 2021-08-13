@@ -36,8 +36,9 @@ const Users = sequelize.define('Users', {
         defaultValue: 0
     }
 }, {
-    updatedAt: 'updated_at',
-    createdAt: 'created_at'
+    //updatedAt: 'updated_at',
+    //createdAt: 'created_at'
+    underscored: true
 });
 
 async function CreateTableUsers() {

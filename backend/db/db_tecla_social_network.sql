@@ -44,21 +44,34 @@ CREATE TABLE Hobbies(
     FOREIGN KEY(user_id) REFERENCES Users(user_id)
 );
 
---tbl catalogos para copiar y pegar
 CREATE TABLE Catalogs(
     catalog_id INT NOT NULL IDENTITY(1,1),
-    catalog_type INT NOT NULL, --1 Conocimientos, 2 Tecnologías, 3 Desempeño, 4 Soft skills, 5 Entornos profesionales, 6 Hobbies
+    catalog_name VARCHAR NOT NULL, -- Conocimientos,  Tecnologías,  Desempeño,  Soft skills,  Entornos profesionales,  Hobbies
+    enterprise_id INT NOT NULL,
+    active BIT DEFAULT 1,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY(catalog_id),
+    FOREIGN KEY (enterprise_id) REFERENCES Enterprise(enterprise_id),
+);
+
+--tbl catalogos para copiar y pegar
+CREATE TABLE ElementsCatalog(
+    element_catalog_id INT NOT NULL IDENTITY(1,1),
+    catalog_type INT NOT NULL,
     --element_order INT NOT NULL,
     element_name VARCHAR NOT NULL,
     active BIT DEFAULT 1,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY(catalog_id),
+    PRIMARY KEY(element_catalog_id),
+    FOREIGN KEY (catalog_type) REFERENCES Catalogs(catalog_id),
 );
 
+--Relación incremental 3:1 con respecto a Users. Si en users hay 3 usuarios esta tbl contendrá 15 Circles.
 CREATE TABLE UserCircles(
     circle_id INT NOT NULL IDENTITY(1,1),
-    type_circle INT NOT NULL, --Tipo de circulo 1 amigos, 2 colegas, 3 empleo
+    type_circle INT NOT NULL, --Tipo de circulo 1 amigos, 2 colegas, 3 empleo --Invitación para el tipo de feedback
     user_id INT NOT NULL,
     active BIT DEFAULT 1,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -70,7 +83,7 @@ CREATE TABLE UserCircles(
 CREATE TABLE Enterprise(
     enterprise_id INT NOT NULL IDENTITY(1,1),
     enterprise_name VARCHAR NOT NULL,
-    system_owner BIT DEFAULT 1, -- Bandera que identifica a un propietario de sistema, sus colaboradores deran estar definidos en la tbl MemberEnterprise, el propietario de sistema podra añadir miembros al circulo 3 de un colaborador
+    system_owner BIT DEFAULT 0, -- Bandera que identifica a un propietario de sistema, sus colaboradores deran estar definidos en la tbl MemberEnterprise, el propietario de sistema podra añadir miembros al circulo 3 de un colaborador
     active BIT DEFAULT 1,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -82,12 +95,14 @@ CREATE TABLE Members_Circle_Enterprise(
     relation_circle_id INT NOT NULL IDENTITY(1,1), --Se queda el nombre relation circle porque al final solo los miembros de un circulo con el usuario podran dar feedback
     type_relation INT NOT NULL, --1 Relación directa con el usuario(el usuario o su empresa lo marca dentro de algun circulo) | 2 Colaborador de una empresa
     circle_id INT, -- Para el caso type_relation 2 Circle id debe ser NULL
+    enterprise_id INT NOT NULL, -- Para el caso type_relation 1 enterprise_id debe ser NULL
     user_id INT NOT NULL, --El dueño ya es integrante de su circulo
     active BIT DEFAULT 1,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY(relation_circle_id),
-    FOREIGN KEY(circle_id) REFERENCES UserCircles(circle_id)
+    FOREIGN KEY(circle_id) REFERENCES UserCircles(circle_id),
+    FOREIGN KEY(enterprise_id) REFERENCES Enterprise(enterprise_id),
     FOREIGN KEY(user_id) REFERENCES Users(user_id)
 );
 
@@ -108,8 +123,8 @@ CREATE TABLE Feedback(
     user_id INT NOT NULL,
     relation_circle_id INT NOT NULL,
     skill_id INT, --Cuando is_general_feedback sea 1 skill_id debe ser null
-    points INT NOT NULL,
-    feedback TEXT, 
+    points INT NOT NULL, --Máx 5
+    feedback TEXT,
     visibility INT NOT NULL, --El usuario dueño del skill puede decidir si mostrar o no el feedback en su perfil, la funcion que cree feedbacks generales debera colocar por default el feedback como publico (1), el usuario posteriormente podra desactivar el comentario solo para él.
     is_general_feedback BIT DEFAULT 1, --Feedback o comentario general, no sobre un skill: 0 comentario sobre skill | 1 Comentario a aparecer al final del perfil
     active BIT DEFAULT 1,
@@ -120,3 +135,10 @@ CREATE TABLE Feedback(
     FOREIGN KEY(skill_id) REFERENCES Skills(skill_id),
     FOREIGN KEY(user_id) REFERENCES Users(user_id),
 );
+
+-- NOTA: CREAR MIDDLEWARE QUE VERIFIQUE LA PERTENENCIA DE UN USUARIO A UNA EMPRESA Y SI ESE USUARIO TIENE LA BANDERA ACTIVE PARA ACCEDER AL SISTEMA COMO ADMIN
+-- Crear tabla para Chats (EN ESPERA)
+-- ROBERTO CONFIGURA JIRA
+-- ROBERTO FEEDBACK, CATALOGS, ElementsCatalog
+-- Miguel Enterprise, UserCircles, Members_Circle_Enterprise
+-- Alberto Users, Skills, Hobbies y Addresses | Crear tabla para Vacantes/Ofertas laborales, Postulaciones (relaciona Users con Ofertas laborales), Tabla Estudios
