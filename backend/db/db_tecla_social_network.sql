@@ -33,6 +33,20 @@ CREATE TABLE Addresses(
     FOREIGN KEY(user_id) REFERENCES Users(user_id)
 );
 
+CREATE TABLE Degrees(
+    degree_id INT NOT NULL IDENTITY(1,1),
+    user_id INT NOT NULL,
+    degree_name VARCHAR NOT NULL,
+    institute VARCHAR NOT NULL,
+    --degree VARCHAR NOT NULL, --college, master's, doctoral, postgraduate
+    --degree_type INT NOT NULL, --Seleccionar si fue presencial, en linea, mixto
+    active BIT DEFAULT 1,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY(degree_id),
+    FOREIGN KEY(user_id) REFERENCES Users(user_id)
+);
+
 CREATE TABLE Hobbies(
     hobby_id INT NOT NULL IDENTITY(1,1),
     hobby_name VARCHAR NOT NULL,
@@ -134,6 +148,38 @@ CREATE TABLE Feedback(
     FOREIGN KEY(relation_circle_id) REFERENCES Members_Circle_Enterprise(relation_circle_id),
     FOREIGN KEY(skill_id) REFERENCES Skills(skill_id),
     FOREIGN KEY(user_id) REFERENCES Users(user_id),
+);
+
+CREATE TABLE Hirings(
+    hiring_id INT NOT NULL IDENTITY(1,1),
+    enterprise_id INT NOT NULL,
+    hiring_name VARCHAR NOT NULL,
+    hiring_description TEXT NOT NULL,
+    soft_skills TEXT NOT NULL,
+    hard_skills TEXT NOT NULL,
+    we_offer TEXT NOT NULL,
+    salary VARCHAR NOT NULL,
+    failed_message TEXT NOT NULL, --Mensaje automatico para rechazar una solicitud en cualquier momento
+    active BIT DEFAULT 1,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY(hiring_id),
+    FOREIGN KEY(enterprise_id) REFERENCES Enterprise(enterprise_id)
+);
+
+CREATE TABLE Applies(
+    apply_id INT NOT NULL(1,1),
+    hiring_id INT NOT NULL,
+    user_id INT NOT NULL,
+    apply_status INT NOT NULL, --Definidas por defualt 1 El solicitante aplica a la vacante | 2 La empresa (nivel admin) acepta la solicitud | 0 La empresa rechaza la solicitud o la elimina en laguna parte del proceso | 3 concluye el proceso con contratación
+    user_comments TEXT NOT NULL, --Comentarios sobre el proceso del usuario
+    enterprise_comments TEXT NOT NULL, --Comentarios sobre el proceso de la empresa
+    active BIT DEFAULT 1,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY(apply_id),
+    FOREIGN KEY(hiring_id) REFERENCES Hirings(hiring_id),
+    FOREIGN KEY(user_id) REFERENCES Users(user_id)
 );
 
 -- NOTA: CREAR MIDDLEWARE QUE VERIFIQUE LA PERTENENCIA DE UN USUARIO A UNA EMPRESA Y SI ESE USUARIO TIENE LA BANDERA ACTIVE PARA ACCEDER AL SISTEMA COMO ADMIN
