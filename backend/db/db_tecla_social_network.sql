@@ -9,9 +9,9 @@ CREATE TABLE Users(
     user_id INT NOT NULL IDENTITY(1,1),
     first_name VARCHAR(150) NOT NULL, --Para el nombre completo combinar first name y last name
     last_name VARCHAR(60) NOT NULL,
-    age INT NOT NULL,
+    age INT, --Sí pueden ser null, no se requieren al inicio
     email VARCHAR(320) NOT NULL,
-    profile_linkedin VARCHAR(320) NOT NULL,
+    profile_linkedin VARCHAR(320), --Sí pueden ser null, no se requieren al inicio
     encrypted_password VARCHAR(255) NOT NULL,
     is_admin BIT DEFAULT 0,
     type_feedback BIT DEFAULT 0, --Configuración de feedback 0 Feedback cerrado a su circulo, 1 Feedback abierto/publico.
@@ -25,6 +25,10 @@ CREATE TABLE Addresses(
     address_id INT NOT NULL IDENTITY(1,1),
     country VARCHAR NOT NULL,
     city VARCHAR NOT NULL,
+    street VARCHAR,
+    outside_number VARCHAR,
+    inside_number VARCHAR,
+    home_references VARCHAR,
     user_id INT NOT NULL,
     active BIT DEFAULT 1,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -38,7 +42,7 @@ CREATE TABLE Degrees(
     user_id INT NOT NULL,
     degree_name VARCHAR NOT NULL,
     institute VARCHAR NOT NULL,
-    --degree VARCHAR NOT NULL, --college, master's, doctoral, postgraduate
+    degree VARCHAR NOT NULL, --college, master's, doctoral, postgraduate
     --degree_type INT NOT NULL, --Seleccionar si fue presencial, en linea, mixto
     active BIT DEFAULT 1,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -94,7 +98,7 @@ CREATE TABLE UserCircles(
     FOREIGN KEY(user_id) REFERENCES Users(user_id)
 );
 
-CREATE TABLE Enterprise(
+CREATE TABLE Enterprises(
     enterprise_id INT NOT NULL IDENTITY(1,1),
     enterprise_name VARCHAR NOT NULL,
     system_owner BIT DEFAULT 0, -- Bandera que identifica a un propietario de sistema, sus colaboradores deran estar definidos en la tbl MemberEnterprise, el propietario de sistema podra añadir miembros al circulo 3 de un colaborador

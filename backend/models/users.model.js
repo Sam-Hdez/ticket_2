@@ -18,26 +18,36 @@ const Users = sequelize.define('users', {
         type: DataTypes.STRING(60),
         allowNull: false
     },
+    age: {
+        type: DataTypes.INTEGER,
+        //allowNull: false
+    },
     email: {
         type: DataTypes.STRING(320),
         allowNull: false
+    },
+    profile_linkedin: {
+        type: DataTypes.STRING(320),
+        //allowNull: false
     },
     encrypted_password: {
         //STRING de 255 por default
         type: DataTypes.STRING,
         allowNull: false
     },
-    active: {
+    type_feedback: {
         type: DataTypes.BOOLEAN,
-        defaultValue: 1
+        defaultValue: 0
     },
     is_admin: {
         type: DataTypes.BOOLEAN,
         defaultValue: 0
+    },
+    active: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: 1
     }
 }, {
-    //updatedAt: 'updated_at',
-    //createdAt: 'created_at'
     underscored: true
 });
 
