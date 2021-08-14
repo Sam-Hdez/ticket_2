@@ -20,7 +20,6 @@ const Users = sequelize.define('users', {
     },
     age: {
         type: DataTypes.INTEGER,
-        //allowNull: false
     },
     email: {
         type: DataTypes.STRING(320),
@@ -28,11 +27,12 @@ const Users = sequelize.define('users', {
     },
     profile_linkedin: {
         type: DataTypes.STRING(320),
-        //allowNull: false
     },
     profile_photo: {
-        type: DataTypes.STRING(320),
-        //allowNull: false
+        type: DataTypes.STRING,
+    },
+    job_resume: {
+        type: DataTypes.STRING,
     },
     encrypted_password: {
         //STRING de 255 por default

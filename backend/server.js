@@ -24,7 +24,7 @@ async function server() {
             console.log(`Sistema iniciado en http://${process.env.HOST}:${process.env.PORT}`);
         });
 
-        //await models();
+        await models();
 
     } catch (error) {
         console.error('No se pudo conectar correctamebte con la Base de datos:', error);
