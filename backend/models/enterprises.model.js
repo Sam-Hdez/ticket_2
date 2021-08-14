@@ -1,52 +1,56 @@
 const { sequelize, DataTypes, Op } = require('../db/conexion');
 
 const Enterprises = sequelize.define('enterprises', {
-  enterprise_id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    primaryKey: true,
-    autoIncrement: true,
-  },
-  enterprise_name: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  system_owner: {
-    type: DataTypes.BOOLEAN,
-    defaultValue: false
-  },
-  active: {
-    type: DataTypes.BOOLEAN,
-    defaultValue: true
-  }
+    enterprise_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true,
+        autoIncrement: true,
+    },
+    enterprise_name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    system_owner: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
+    },
+    active: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true
+    }
 }, {
-  underscored: true
+    underscored: true
 });
 
 class Enterprise {
-  constructor(data){
-    this.enterprise_name = data.enterprise_name;
-  }
+    constructor(data) {
+        this.enterprise_name = data.enterprise_name;
+    }
 
-  async createEnterprise() {
+    async createEnterprise() {
 
-  }
+    }
 
-  async updateEnterprise() {
+    async updateEnterprise() {
 
-  }
+    }
 
-  async deleteEnterprise() {
+    async deleteEnterprise() {
 
-  }
+    }
+}
+
+async function CreateTableEnterprises() {
+    await Enterprises.sync();
 }
 
 async function listAllEnterprises() {
-  try {
+    try {
 
-  } catch (e) {
+    } catch (e) {
 
-  }
+    }
 }
 
 async function getEnterprise(id) {
@@ -55,5 +59,6 @@ async function getEnterprise(id) {
 
 
 module.exports = {
-  Enterprises
+    CreateTableEnterprises,
+    Enterprises
 }

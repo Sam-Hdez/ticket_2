@@ -5,13 +5,15 @@ USE tecla_social_network;
 GO
 
 --roles TEXT DEFAULT '[]',
-CREATE TABLE Users(
+CREATE TABLE users(
     user_id INT NOT NULL IDENTITY(1,1),
     first_name VARCHAR(150) NOT NULL, --Para el nombre completo combinar first name y last name
     last_name VARCHAR(60) NOT NULL,
     age INT, --Sí pueden ser null, no se requieren al inicio
     email VARCHAR(320) NOT NULL,
     profile_linkedin VARCHAR(320), --Sí pueden ser null, no se requieren al inicio
+    profile_photo VARCHAR,
+    job_resume VARCHAR,
     encrypted_password VARCHAR(255) NOT NULL,
     is_admin BIT DEFAULT 0,
     type_feedback BIT DEFAULT 0, --Configuración de feedback 0 Feedback cerrado a su circulo, 1 Feedback abierto/publico.
@@ -21,7 +23,17 @@ CREATE TABLE Users(
     PRIMARY KEY(user_id)
 );
 
-CREATE TABLE Addresses(
+CREATE TABLE enterprises(
+    enterprise_id INT NOT NULL IDENTITY(1,1),
+    enterprise_name VARCHAR NOT NULL,
+    system_owner BIT DEFAULT 0, -- Bandera que identifica a un propietario de sistema, sus colaboradores deran estar definidos en la tbl MemberEnterprise, el propietario de sistema podra añadir miembros al circulo 3 de un colaborador
+    active BIT DEFAULT 1,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY(enterprise_id),
+);
+
+CREATE TABLE addresses(
     address_id INT NOT NULL IDENTITY(1,1),
     country VARCHAR NOT NULL,
     city VARCHAR NOT NULL,
@@ -34,10 +46,10 @@ CREATE TABLE Addresses(
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY(address_id),
-    FOREIGN KEY(user_id) REFERENCES Users(user_id)
+    FOREIGN KEY(user_id) REFERENCES users(user_id)
 );
 
-CREATE TABLE Degrees(
+CREATE TABLE degrees(
     degree_id INT NOT NULL IDENTITY(1,1),
     user_id INT NOT NULL,
     degree_name VARCHAR NOT NULL,
@@ -48,10 +60,10 @@ CREATE TABLE Degrees(
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY(degree_id),
-    FOREIGN KEY(user_id) REFERENCES Users(user_id)
+    FOREIGN KEY(user_id) REFERENCES users(user_id)
 );
 
-CREATE TABLE Hobbies(
+CREATE TABLE hobbies(
     hobby_id INT NOT NULL IDENTITY(1,1),
     hobby_name VARCHAR NOT NULL,
     user_id INT NOT NULL,
@@ -59,10 +71,10 @@ CREATE TABLE Hobbies(
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY(hobby_id),
-    FOREIGN KEY(user_id) REFERENCES Users(user_id)
+    FOREIGN KEY(user_id) REFERENCES users(user_id)
 );
 
-CREATE TABLE Catalogs(
+CREATE TABLE catalogs(
     catalog_id INT NOT NULL IDENTITY(1,1),
     catalog_name VARCHAR NOT NULL, -- Conocimientos,  Tecnologías,  Desempeño,  Soft skills,  Entornos profesionales,  Hobbies
     enterprise_id INT NOT NULL,
@@ -70,11 +82,11 @@ CREATE TABLE Catalogs(
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY(catalog_id),
-    FOREIGN KEY (enterprise_id) REFERENCES Enterprise(enterprise_id),
+    FOREIGN KEY (enterprise_id) REFERENCES enterprises(enterprise_id),
 );
 
 --tbl catalogos para copiar y pegar
-CREATE TABLE ElementsCatalogs(
+CREATE TABLE elements_catalogs(
     element_catalog_id INT NOT NULL IDENTITY(1,1),
     catalog_type INT NOT NULL,
     --element_order INT NOT NULL,
@@ -83,11 +95,11 @@ CREATE TABLE ElementsCatalogs(
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY(element_catalog_id),
-    FOREIGN KEY (catalog_type) REFERENCES Catalogs(catalog_id),
+    FOREIGN KEY (catalog_type) REFERENCES catalogs(catalog_id),
 );
 
 --Relación incremental 3:1 con respecto a Users. Si en users hay 3 usuarios esta tbl contendrá 15 Circles.
-CREATE TABLE UserCircles(
+CREATE TABLE users_circles(
     circle_id INT NOT NULL IDENTITY(1,1),
     type_circle INT NOT NULL, --Tipo de circulo 1 amigos, 2 colegas, 3 empleo --Invitación para el tipo de feedback
     user_id INT NOT NULL,
@@ -95,36 +107,26 @@ CREATE TABLE UserCircles(
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY(circle_id),
-    FOREIGN KEY(user_id) REFERENCES Users(user_id)
-);
-
-CREATE TABLE Enterprises(
-    enterprise_id INT NOT NULL IDENTITY(1,1),
-    enterprise_name VARCHAR NOT NULL,
-    system_owner BIT DEFAULT 0, -- Bandera que identifica a un propietario de sistema, sus colaboradores deran estar definidos en la tbl MemberEnterprise, el propietario de sistema podra añadir miembros al circulo 3 de un colaborador
-    active BIT DEFAULT 1,
-    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY(enterprise_id),
+    FOREIGN KEY(user_id) REFERENCES users(user_id)
 );
 
 --Los que se encuentren en su circulo pueden calificar y dar feedback/recomendaciones
-CREATE TABLE Members_Circle_Enterprises(
+CREATE TABLE members_circle_enterprises(
     relation_circle_id INT NOT NULL IDENTITY(1,1), --Se queda el nombre relation circle porque al final solo los miembros de un circulo con el usuario podran dar feedback
     type_relation INT NOT NULL, --1 Relación directa con el usuario(el usuario o su empresa lo marca dentro de algun circulo) | 2 Colaborador de una empresa
     circle_id INT, -- Para el caso type_relation 2 Circle id debe ser NULL
-    enterprise_id INT NOT NULL, -- Para el caso type_relation 1 enterprise_id debe ser NULL
+    enterprise_id INT, -- Para el caso type_relation 1 enterprise_id debe ser NULL
     user_id INT NOT NULL, --El dueño ya es integrante de su circulo
     active BIT DEFAULT 1,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY(relation_circle_id),
-    FOREIGN KEY(circle_id) REFERENCES UserCircles(circle_id),
-    FOREIGN KEY(enterprise_id) REFERENCES Enterprise(enterprise_id),
-    FOREIGN KEY(user_id) REFERENCES Users(user_id)
+    FOREIGN KEY(circle_id) REFERENCES users_circles(circle_id),
+    FOREIGN KEY(enterprise_id) REFERENCES enterprises(enterprise_id),
+    FOREIGN KEY(user_id) REFERENCES users(user_id)
 );
 
-CREATE TABLE Skills(
+CREATE TABLE skills(
     skill_id INT NOT NULL IDENTITY(1,1),
     type_skill INT NOT NULL, --Puede ser relacional asociado a Catalogs(catalog_type)
     skill_name VARCHAR NOT NULL,
@@ -133,10 +135,10 @@ CREATE TABLE Skills(
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY(skill_id),
-    FOREIGN KEY(user_id) REFERENCES Users(user_id),
+    FOREIGN KEY(user_id) REFERENCES users(user_id),
 );
 
-CREATE TABLE Feedbacks(
+CREATE TABLE feedbacks(
     feedback_id INT NOT NULL IDENTITY(1,1),
     user_id INT NOT NULL,
     relation_circle_id INT NOT NULL,
@@ -149,12 +151,12 @@ CREATE TABLE Feedbacks(
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY(feedback_id),
-    FOREIGN KEY(relation_circle_id) REFERENCES Members_Circle_Enterprise(relation_circle_id),
-    FOREIGN KEY(skill_id) REFERENCES Skills(skill_id),
-    FOREIGN KEY(user_id) REFERENCES Users(user_id),
+    FOREIGN KEY(relation_circle_id) REFERENCES members_circle_enterprises(relation_circle_id),
+    FOREIGN KEY(skill_id) REFERENCES skills(skill_id),
+    FOREIGN KEY(user_id) REFERENCES users(user_id),
 );
 
-CREATE TABLE Hirings(
+CREATE TABLE hirings(
     hiring_id INT NOT NULL IDENTITY(1,1),
     enterprise_id INT NOT NULL,
     hiring_name VARCHAR NOT NULL,
@@ -168,11 +170,11 @@ CREATE TABLE Hirings(
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY(hiring_id),
-    FOREIGN KEY(enterprise_id) REFERENCES Enterprise(enterprise_id)
+    FOREIGN KEY(enterprise_id) REFERENCES enterprises(enterprise_id)
 );
 
-CREATE TABLE Applies(
-    apply_id INT NOT NULL(1,1),
+CREATE TABLE applies(
+    apply_id INT NOT NULL IDENTITY(1,1),
     hiring_id INT NOT NULL,
     user_id INT NOT NULL,
     apply_status INT NOT NULL, --Definidas por defualt 1 El solicitante aplica a la vacante | 2 La empresa (nivel admin) acepta la solicitud | 0 La empresa rechaza la solicitud o la elimina en laguna parte del proceso | 3 concluye el proceso con contratación
@@ -182,8 +184,8 @@ CREATE TABLE Applies(
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY(apply_id),
-    FOREIGN KEY(hiring_id) REFERENCES Hirings(hiring_id),
-    FOREIGN KEY(user_id) REFERENCES Users(user_id)
+    FOREIGN KEY(hiring_id) REFERENCES hirings(hiring_id),
+    FOREIGN KEY(user_id) REFERENCES users(user_id)
 );
 
 -- NOTA: CREAR MIDDLEWARE QUE VERIFIQUE LA PERTENENCIA DE UN USUARIO A UNA EMPRESA Y SI ESE USUARIO TIENE LA BANDERA ACTIVE PARA ACCEDER AL SISTEMA COMO ADMIN
