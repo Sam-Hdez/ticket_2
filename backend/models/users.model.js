@@ -30,6 +30,10 @@ const Users = sequelize.define('users', {
         type: DataTypes.STRING(320),
         //allowNull: false
     },
+    profile_photo: {
+        type: DataTypes.STRING(320),
+        //allowNull: false
+    },
     encrypted_password: {
         //STRING de 255 por default
         type: DataTypes.STRING,

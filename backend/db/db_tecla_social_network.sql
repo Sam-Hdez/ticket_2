@@ -74,7 +74,7 @@ CREATE TABLE Catalogs(
 );
 
 --tbl catalogos para copiar y pegar
-CREATE TABLE ElementsCatalog(
+CREATE TABLE ElementsCatalogs(
     element_catalog_id INT NOT NULL IDENTITY(1,1),
     catalog_type INT NOT NULL,
     --element_order INT NOT NULL,
@@ -109,7 +109,7 @@ CREATE TABLE Enterprises(
 );
 
 --Los que se encuentren en su circulo pueden calificar y dar feedback/recomendaciones
-CREATE TABLE Members_Circle_Enterprise(
+CREATE TABLE Members_Circle_Enterprises(
     relation_circle_id INT NOT NULL IDENTITY(1,1), --Se queda el nombre relation circle porque al final solo los miembros de un circulo con el usuario podran dar feedback
     type_relation INT NOT NULL, --1 Relación directa con el usuario(el usuario o su empresa lo marca dentro de algun circulo) | 2 Colaborador de una empresa
     circle_id INT, -- Para el caso type_relation 2 Circle id debe ser NULL
@@ -136,7 +136,7 @@ CREATE TABLE Skills(
     FOREIGN KEY(user_id) REFERENCES Users(user_id),
 );
 
-CREATE TABLE Feedback(
+CREATE TABLE Feedbacks(
     feedback_id INT NOT NULL IDENTITY(1,1),
     user_id INT NOT NULL,
     relation_circle_id INT NOT NULL,
@@ -189,6 +189,6 @@ CREATE TABLE Applies(
 -- NOTA: CREAR MIDDLEWARE QUE VERIFIQUE LA PERTENENCIA DE UN USUARIO A UNA EMPRESA Y SI ESE USUARIO TIENE LA BANDERA ACTIVE PARA ACCEDER AL SISTEMA COMO ADMIN
 -- Crear tabla para Chats (EN ESPERA)
 -- ROBERTO CONFIGURA JIRA
--- ROBERTO FEEDBACK, CATALOGS, ElementsCatalog
--- Miguel Enterprise, UserCircles, Members_Circle_Enterprise
--- Alberto Users, Skills, Hobbies y Addresses | Crear tabla para Vacantes/Ofertas laborales, Postulaciones (relaciona Users con Ofertas laborales), Tabla Estudios
+-- ROBERTO FEEDBACK, CATALOGS, ElementsCatalog, Hirings
+-- Miguel Enterprise, UserCircles, Members_Circle_Enterprise, Degrees
+-- Alberto Users, Skills, Hobbies y Addresses | Postulaciones (relaciona Users con Ofertas laborales)
