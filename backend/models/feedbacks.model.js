@@ -1,6 +1,6 @@
 const { sequelize, DataTypes, Op } = require('../db/conexion');
 
-const Feedback = sequelize.define('feedback', {
+const Feedbacks = sequelize.define('feedbacks', {
     feedback_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -14,7 +14,7 @@ const Feedback = sequelize.define('feedback', {
     },
     feedback: {
         type: DataTypes.TEXT,
-        allowNull: true //Comentar con el team
+        allowNull: true
     },
     visibility: {
         type: DataTypes.INTEGER,
@@ -22,7 +22,7 @@ const Feedback = sequelize.define('feedback', {
     },
     is_general_feedback: {
         type: DataTypes.BOOLEAN,
-        allowNull: false //comentar con el team
+        defaultValue: true
     },
     user_id: {
         type: DataTypes.INTEGER,
@@ -56,10 +56,10 @@ const Feedback = sequelize.define('feedback', {
     underscored: true
 });
 
-async function CreateTableFeedback() {
-    await Feedback.sync();
+async function CreateTableFeedbacks() {
+    await Feedbacks.sync();
 }
 
 module.exports = {
-    CreateTableFeedback,
+    CreateTableFeedbacks,
 }

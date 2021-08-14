@@ -1,6 +1,6 @@
 const { sequelize, DataTypes, Op } = require('../db/conexion');
 
-const ElementsCatalog = sequelize.define('elementsCatalog', {
+const ElementsCatalogs = sequelize.define('elementsCatalogs', {
     element_catalog_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -28,10 +28,10 @@ const ElementsCatalog = sequelize.define('elementsCatalog', {
     underscored: true
 });
 
-async function CreateTableElementsCatalog() {
-    await ElementsCatalog.sync();
+async function CreateTableElementsCatalogs() {
+    await ElementsCatalogs.sync();
 }
 
 module.exports = {
-    CreateTableElementsCatalog,
+    CreateTableElementsCatalogs,
 }
