@@ -2,7 +2,7 @@ const { sequelize, DataTypes, Op } = require('../db/conexion');
 const bcrypt = require('bcrypt'); //bcrypt para hashear contraseña
 const saltRounds = 10; //rondas salt entre más hay más seguridad pero tarda más la respuesta
 
-const Users = sequelize.define('Users', {
+const Users = sequelize.define('users', {
     user_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -237,6 +237,7 @@ async function changePassword(email_user, newpassword) {
 }
 
 module.exports = {
+    Users,
     User,
     CreateTableUsers,
     LoadingOneAdmin,
