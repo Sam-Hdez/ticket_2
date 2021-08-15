@@ -1,4 +1,5 @@
 const { sequelize, DataTypes, Op } = require('../db/conexion');
+const { MembersCircleEnterprises } = require('./membersCircleEnterprises.model');
 
 const Feedbacks = sequelize.define('feedbacks', {
     feedback_id: {
@@ -32,11 +33,11 @@ const Feedbacks = sequelize.define('feedbacks', {
             key: 'user_id'
         }
     },
-    relation_circle_id:{
+    relation_circle_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-            model: 'MembersCircleEnterprises',
+            model: MembersCircleEnterprises,
             key: 'relation_circle_id'
         }
     },

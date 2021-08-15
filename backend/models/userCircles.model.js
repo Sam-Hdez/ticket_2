@@ -1,8 +1,8 @@
 const { sequelize, DataTypes, Op } = require('../db/conexion');
-const { Users } = require('./users.model');
+//const { Users } = require('./users.model');
 
 
-const UserCircles = sequelize.define('user_circles', {
+const UserCircles = sequelize.define('users_circles', {
     circle_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -17,7 +17,7 @@ const UserCircles = sequelize.define('user_circles', {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-            model: Users,
+            model: 'Users',
             key: 'user_id'
         }
     },
@@ -146,7 +146,7 @@ class UserCircle {
      */
     async getUserCircleByUserId(userId) {
         try {
-            return UserCircles.findOne({
+            return UserCircles.findAll({
                 where: {
                     user_id: userId,
                     active: true
@@ -171,7 +171,7 @@ class UserCircle {
      */
     async getUserCircleByTypeCircle(type) {
         try {
-            return UserCircles.findOne({
+            return UserCircles.findAll({
                 where: {
                     type_circle: type,
                     active: true
@@ -191,8 +191,12 @@ class UserCircle {
     
 }
 
+async function CreateTableUserCircles() {
+    await UserCircles.sync();
+}
 
 module.exports = {
     UserCircles,
-    UserCircle
+    UserCircle,
+    CreateTableUserCircles
 }

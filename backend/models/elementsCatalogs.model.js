@@ -17,7 +17,7 @@ const ElementsCatalogs = sequelize.define('elementsCatalogs', {
         allowNull: false,
         references: {
             model: 'Catalogs',
-            key: 'catalog_type'
+            key: 'catalog_id'
         }
     },
     active: {

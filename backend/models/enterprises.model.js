@@ -157,7 +157,12 @@ class Enterprise {
     }
 }
 
+async function CreateTableEnterprises() {
+    await Enterprises.sync();
+}
+
 module.exports = {
     Enterprises,
-    Enterprise
+    Enterprise,
+    CreateTableEnterprises,
 }
