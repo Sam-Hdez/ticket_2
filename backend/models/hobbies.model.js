@@ -32,6 +32,8 @@ async function CreateTableHobbies() {
     await Hobbies.sync();
 }
 
+
+
 module.exports = {
     CreateTableHobbies,
 }

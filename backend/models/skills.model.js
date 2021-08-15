@@ -45,7 +45,7 @@ class Skill {
 
     async createSkill() {
         try {
-            const skillCreated = await Addresses.create({
+            const skillCreated = await Skills.create({
                 user_id: this.user_id,
                 type_skill: this.type_skill,
                 skill_name: this.skill_name,
@@ -56,42 +56,49 @@ class Skill {
         }
     }
 
-    /*async updateAddress(id, data) {
+    async updateSkill(id, data) {
         try {
-            let address_status = await Users.update({
-                country: data.country,
-                city: data.city,
-                street: data.street,
-                outside_number: data.outside_number,
-                inside_number: data.inside_number,
-                home_references: data.home_references,
+            let skill_status = await Skills.update({
+                type_skill: data.type_skill,
+                skill_name: data.skill_name,
             }, {
                 where: {
-                    address_id: id
+                    skill_id: id
                 }
             });
-            return address_status;
+            return skill_status;
         } catch (error) {
-            throw new Error('Error en la función updateAddress: ' + error.message);
+            throw new Error('Error en la función updateSkill: ' + error.message);
         }
     }
 
-    async deleteAddress(id) {
+    async deleteSkill(id) {
         try {
-            let address_status = await Users.update({
+            let skill_status = await Skills.update({
                 active: 0,
             }, {
                 where: {
-                    address_id: id
+                    skill_id: id
                 }
             });
-            return address_status;
+            return skill_status;
         } catch (error) {
-            throw new Error('Error en la función deleteAddress: ' + error.message);
+            throw new Error('Error en la función deleteSkill: ' + error.message);
         }
-    }*/
+    }
+}
+
+async function AllSkillsUser(user) {
+    try {
+        let listAddress = await Skills.findAll({ where: { user_id: user, active: 1 } });
+        return listAddress;
+    } catch (error) {
+        throw new Error('Error en la función AllSkillsUser: ' + error.message);
+    }
 }
 
 module.exports = {
     CreateTableSkills,
+    Skill,
+    AllSkillsUser,
 }

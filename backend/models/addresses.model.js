@@ -70,7 +70,7 @@ class Address {
 
     async updateAddress(id, data) {
         try {
-            let address_status = await Users.update({
+            let address_status = await Addresses.update({
                 country: data.country,
                 city: data.city,
                 street: data.street,
@@ -90,7 +90,7 @@ class Address {
 
     async deleteAddress(id) {
         try {
-            let address_status = await Users.update({
+            let address_status = await Addresses.update({
                 active: 0,
             }, {
                 where: {
