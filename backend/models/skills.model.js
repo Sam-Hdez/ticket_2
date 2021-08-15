@@ -26,7 +26,7 @@ const Skills = sequelize.define('skills', {
     },
     active: {
         type: DataTypes.BOOLEAN,
-        defaultValue: 1
+        defaultValue: true
     }
 }, {
     underscored: true
@@ -75,7 +75,7 @@ class Skill {
     async deleteSkill(id) {
         try {
             let skill_status = await Skills.update({
-                active: 0,
+                active: false,
             }, {
                 where: {
                     skill_id: id

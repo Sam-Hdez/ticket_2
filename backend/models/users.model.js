@@ -126,7 +126,7 @@ class User {
     async deleteUser(id) {
         try {
             let user_status = await Users.update({
-                active: 0,
+                active: false,
                 encrypted_password: '' //Se manda encrypted_password a vacío, por el momento no hay solicitud de reactivación
             }, {
                 where: {

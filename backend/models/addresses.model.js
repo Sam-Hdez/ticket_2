@@ -38,7 +38,7 @@ const Addresses = sequelize.define('addresses', {
     },
     active: {
         type: DataTypes.BOOLEAN,
-        defaultValue: 1
+        defaultValue: true
     }
 }, {
     underscored: true
@@ -91,7 +91,7 @@ class Address {
     async deleteAddress(id) {
         try {
             let address_status = await Addresses.update({
-                active: 0,
+                active: false,
             }, {
                 where: {
                     address_id: id

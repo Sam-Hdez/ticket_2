@@ -22,7 +22,7 @@ const Hobbies = sequelize.define('hobbies', {
     },
     active: {
         type: DataTypes.BOOLEAN,
-        defaultValue: 1
+        defaultValue: true
     }
 }, {
     underscored: true
@@ -32,8 +32,66 @@ async function CreateTableHobbies() {
     await Hobbies.sync();
 }
 
+class Hobby {
+    constructor(data) {
+        this.user_id = data.user_id;
+        this.hobby_name = data.hobby_name;
+    }
 
+    async createHobby() {
+        try {
+            const hobbyCreated = await Hobbies.create({
+                user_id: this.user_id,
+                hobby_name: this.hobby_name,
+            });
+            return hobbyCreated;
+        } catch (error) {
+            throw new Error('Error en la función createHobby: ' + error.message);
+        }
+    }
+
+    async updateHobby(id, data) {
+        try {
+            let hobby_status = await Hobbies.update({
+                hobby_name: data.hobby_name,
+            }, {
+                where: {
+                    hobby_id: id
+                }
+            });
+            return hobby_status;
+        } catch (error) {
+            throw new Error('Error en la función updateHobby: ' + error.message);
+        }
+    }
+
+    async deleteHobby(id) {
+        try {
+            let hobby_status = await Hobbies.update({
+                active: false,
+            }, {
+                where: {
+                    hobby_id: id
+                }
+            });
+            return hobby_status;
+        } catch (error) {
+            throw new Error('Error en la función deleteHobby: ' + error.message);
+        }
+    }
+}
+
+async function AllHobbiesUser(user) {
+    try {
+        let listAddress = await Hobbies.findAll({ where: { user_id: user, active: 1 } });
+        return listAddress;
+    } catch (error) {
+        throw new Error('Error en la función AllHobbiesUser: ' + error.message);
+    }
+}
 
 module.exports = {
     CreateTableHobbies,
+    Hobby,
+    AllHobbiesUser,
 }
