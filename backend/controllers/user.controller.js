@@ -77,7 +77,12 @@ async function listUsers(req, res) {
                 user_id: element.dataValues.user_id,
                 first_name: element.dataValues.first_name,
                 last_name: element.dataValues.last_name,
+                full_name: element.dataValues.first_name + ' ' + element.dataValues.last_name,
                 email: element.dataValues.email,
+                age: element.dataValues.age,
+                profile_linkedin: element.dataValues.profile_linkedin,
+                profile_photo: element.dataValues.profile_photo,
+                job_resume: element.dataValues.job_resume,
                 encrypted_password: element.dataValues.encrypted_password,
                 is_admin: element.dataValues.is_admin,
                 active: element.dataValues.active

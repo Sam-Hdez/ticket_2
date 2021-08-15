@@ -48,6 +48,73 @@ async function CreateTableAddresses() {
     await Addresses.sync();
 }
 
+class Address {
+    constructor(data) {
+        this.user_id = data.user_id;
+        this.country = data.country;
+        this.city = data.city;
+    }
+
+    async createAddress() {
+        try {
+            const addressCreated = await Addresses.create({
+                user_id: this.user_id,
+                country: this.country,
+                city: this.city,
+            });
+            return addressCreated;
+        } catch (error) {
+            throw new Error('Error en la función createAddress: ' + error.message);
+        }
+    }
+
+    async updateAddress(id, data) {
+        try {
+            let address_status = await Users.update({
+                country: data.country,
+                city: data.city,
+                street: data.street,
+                outside_number: data.outside_number,
+                inside_number: data.inside_number,
+                home_references: data.home_references,
+            }, {
+                where: {
+                    address_id: id
+                }
+            });
+            return address_status;
+        } catch (error) {
+            throw new Error('Error en la función updateAddress: ' + error.message);
+        }
+    }
+
+    async deleteAddress(id) {
+        try {
+            let address_status = await Users.update({
+                active: 0,
+            }, {
+                where: {
+                    address_id: id
+                }
+            });
+            return address_status;
+        } catch (error) {
+            throw new Error('Error en la función deleteAddress: ' + error.message);
+        }
+    }
+}
+
+async function AllAddressUser(user) {
+    try {
+        let listAddress = await Addresses.findAll({ where: { user_id: user, active: 1 } });
+        return listAddress;
+    } catch (error) {
+        throw new Error('Error en la función AllAddressUser: ' + error.message);
+    }
+}
+
 module.exports = {
     CreateTableAddresses,
+    Address,
+    AllAddressUser,
 }

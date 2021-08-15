@@ -35,21 +35,22 @@ const Users = sequelize.define('users', {
         type: DataTypes.STRING,
     },
     encrypted_password: {
-        //STRING de 255 por default
         type: DataTypes.STRING,
         allowNull: false
     },
     type_feedback: {
+        //False: El usuario solo acepta feedback de miembros en sus circulos
+        //True: El usuario acepta feedback de toda la comunidad
         type: DataTypes.BOOLEAN,
-        defaultValue: 0
+        defaultValue: false
     },
     is_admin: {
         type: DataTypes.BOOLEAN,
-        defaultValue: 0
+        defaultValue: false
     },
     active: {
         type: DataTypes.BOOLEAN,
-        defaultValue: 1
+        defaultValue: true
     }
 }, {
     underscored: true
@@ -68,8 +69,8 @@ async function LoadingOneAdmin() {
                 first_name: 'Admin',
                 last_name: 'System',
                 email: 'admin@system.com',
-                is_admin: 1,
-                encrypted_password: await bcrypt.hashSync('password123' + 'admin@system.com', saltRounds)
+                is_admin: true,
+                encrypted_password: await bcrypt.hashSync('password123' + process.env.STRING_STRONG, saltRounds)
             });
             console.log('Usuario administrador inicial creado de forma correcta: pass:password123, email: admin@system.com');
         } else {
@@ -95,7 +96,7 @@ class User {
                 first_name: this.first_name,
                 last_name: this.last_name,
                 email: this.email,
-                encrypted_password: await bcrypt.hashSync(this.encrypted_password + this.email, saltRounds)
+                encrypted_password: await bcrypt.hashSync(this.encrypted_password + process.env.STRING_STRONG, saltRounds)
             });
             return userCreated;
         } catch (error) {
@@ -108,6 +109,8 @@ class User {
             let user_status = await Users.update({
                 first_name: data.first_name,
                 last_name: data.last_name,
+                age: data.age,
+                type_feedback: data.type_feedback,
                 is_admin: data.is_admin,
             }, {
                 where: {
@@ -154,7 +157,12 @@ async function getUser(id) {
                 user_id: userResultado.dataValues.user_id,
                 first_name: userResultado.dataValues.first_name,
                 last_name: userResultado.dataValues.last_name,
+                full_name: userResultado.dataValues.first_name + ' ' + userResultado.dataValues.last_name,
                 email: userResultado.dataValues.email,
+                age: userResultado.dataValues.age,
+                profile_linkedin: userResultado.dataValues.profile_linkedin,
+                profile_photo: userResultado.dataValues.profile_photo,
+                job_resume: userResultado.dataValues.job_resume,
                 encrypted_password: userResultado.dataValues.encrypted_password,
                 is_admin: userResultado.dataValues.is_admin,
                 active: userResultado.dataValues.active
@@ -179,8 +187,13 @@ async function readUser(email_to_search) {
                 user_id: userResultado.dataValues.user_id,
                 first_name: userResultado.dataValues.first_name,
                 last_name: userResultado.dataValues.last_name,
+                full_name: userResultado.dataValues.first_name + ' ' + userResultado.dataValues.last_name,
                 email: userResultado.dataValues.email,
-                password: userResultado.dataValues.encrypted_password,
+                age: userResultado.dataValues.age,
+                profile_linkedin: userResultado.dataValues.profile_linkedin,
+                profile_photo: userResultado.dataValues.profile_photo,
+                job_resume: userResultado.dataValues.job_resume,
+                encrypted_password: userResultado.dataValues.encrypted_password,
                 is_admin: userResultado.dataValues.is_admin,
                 active: userResultado.dataValues.active
             }
@@ -226,7 +239,7 @@ const checkUser = async(user) => {
         //El usuario existe en DB
         const userFromDB = await readUser(user.email);
         //La contraseña es correcta
-        if (!bcrypt.compareSync(user.password + user.email, userFromDB.password)) {
+        if (!bcrypt.compareSync(user.password + process.env.STRING_STRONG, userFromDB.encrypted_password)) {
             throw new Error('Usuario o contraseña incorrectos');
         }
         return userFromDB;
@@ -238,7 +251,7 @@ const checkUser = async(user) => {
 async function changePassword(email_user, newpassword) {
     try {
         let user_status = await Users.update({
-            encrypted_password: await bcrypt.hashSync(newpassword + email_user, saltRounds)
+            encrypted_password: await bcrypt.hashSync(newpassword + process.env.STRING_STRONG, saltRounds)
         }, {
             where: {
                 email: email_user
@@ -249,6 +262,56 @@ async function changePassword(email_user, newpassword) {
         throw new Error('Error en la función ListAllUsers: ' + error.message);
     }
 }
+
+async function editProfileLinkedin(id, profile) {
+    try {
+        let user_status = await Users.update({
+            profile_linkedin: profile
+        }, {
+            where: {
+                user_id: id
+            }
+        });
+        return user_status;
+    } catch (error) {
+        throw new Error('Error en la función editProfileLinkedin: ' + error.message);
+    }
+}
+
+async function editProfilePhoto(id, photo) {
+    try {
+        let user_status = await Users.update({
+            profile_photo: photo
+        }, {
+            where: {
+                user_id: id
+            }
+        });
+        return user_status;
+    } catch (error) {
+        throw new Error('Error en la función editProfilePhoto: ' + error.message);
+    }
+}
+
+async function editJobResume(id, resume_link) {
+    try {
+        let user_status = await Users.update({
+            job_resume: resume_link
+        }, {
+            where: {
+                user_id: id
+            }
+        });
+        return user_status;
+    } catch (error) {
+        throw new Error('Error en la función editProfilePhoto: ' + error.message);
+    }
+}
+
+//Pruebas individuales
+//console.log(editProfileLinkedin(1, 'profile/linkedin'));
+//console.log(editProfilePhoto(1, 'photos/users/id'));
+//console.log(editJobResume(1, 'resumes/user/id'));
 
 module.exports = {
     Users,
@@ -261,5 +324,8 @@ module.exports = {
     ValidateUser,
     isAdmin,
     ListAllUsers,
-    changePassword
+    changePassword,
+    editProfileLinkedin,
+    editProfilePhoto,
+    editJobResume
 }
