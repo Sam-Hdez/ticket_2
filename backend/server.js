@@ -12,8 +12,12 @@ app.use(express.json());
 app.use(cors());
 
 const userRoutes = require('./routes/user.routes');
+const enterpriseRoutes = require('./routes/enterprise.routes');
+const userCircleRoutes = require('./routes/userCircle.routes');
 
 app.use('/user', userRoutes);
+app.use('/enterprises', enterpriseRoutes);
+app.use('/usercircles', userCircleRoutes);
 
 async function server() {
     try {
