@@ -96,6 +96,11 @@ class MemberCircleEnterprise {
         }
     }
 
+    /**
+     *
+     * @param {number} id
+     * @returns {Promise<[number, Model<TModelAttributes, TCreationAttributes>[]]>}
+     */
     async deleteMemberCircleEnterprise (id) {
         try {
             return MembersCircleEnterprises.update({
@@ -106,6 +111,11 @@ class MemberCircleEnterprise {
         }
     }
 
+    /**
+     *
+     * @param {number} id
+     * @returns {Promise<Model<TModelAttributes, TCreationAttributes> | null>}
+     */
     async getMemberCircleEnterpriseById(id) {
         try {
             return MembersCircleEnterprises.findOne({
@@ -126,6 +136,10 @@ class MemberCircleEnterprise {
         }
     }
 
+    /**
+     *
+     * @returns {Promise<Model<TModelAttributes, TCreationAttributes>[]>}
+     */
     async getAllMembersCirclesEnterprises() {
         try {
             return MembersCircleEnterprises.findAll({
