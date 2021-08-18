@@ -14,10 +14,12 @@ app.use(cors());
 const userRoutes = require('./routes/user.routes');
 const enterpriseRoutes = require('./routes/enterprise.routes');
 const userCircleRoutes = require('./routes/userCircle.routes');
+const addressRoutes = require('./routes/address.routes');
 
 app.use('/user', userRoutes);
 app.use('/enterprises', enterpriseRoutes);
 app.use('/usercircles', userCircleRoutes);
+app.use('/address', addressRoutes);
 
 async function server() {
     try {

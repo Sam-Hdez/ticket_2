@@ -18,14 +18,8 @@ async function loginController(req, res) {
 
 async function registerController(req, res) {
     try {
-        //let userBody = JSON.parse(req.body.json);
-        //console.log(userBody)
-        //let user = { email: userBody.email, first_name: userBody.nombre, last_name: userBody.apellido, password: userBody.password };
-        //const createResult = await UserCreate(user);
         let user = new User({ email: req.body.email, first_name: req.body.nombre, last_name: req.body.apellidos, encrypted_password: req.body.password });
         const createResult = await user.createUser();
-        //console.log('Dentro de register');
-        //console.log(createResult);
         res.status(200).json({ status: 'Usuario creado ' + createResult.dataValues.email });
     } catch (error) {
         res.status(409).json({ message: 'Error al crear un usuario: ' + error.message }); //409 Conflict
@@ -51,7 +45,7 @@ async function deleteController(req, res) {
 
 async function editController(req, res) {
     try {
-        console.log('EditController');
+        //console.log('EditController');
         let user_id = req.params.id;
         let data = { first_name: req.body.nombre, last_name: req.body.apellidos, is_admin: req.body.is_admin };
 

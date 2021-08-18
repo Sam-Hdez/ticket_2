@@ -185,17 +185,17 @@ async function readUser(email_to_search) {
         if (userResultado) {
             let user = {
                 user_id: userResultado.dataValues.user_id,
-                first_name: userResultado.dataValues.first_name,
-                last_name: userResultado.dataValues.last_name,
-                full_name: userResultado.dataValues.first_name + ' ' + userResultado.dataValues.last_name,
+                //first_name: userResultado.dataValues.first_name,
+                //last_name: userResultado.dataValues.last_name,
+                //full_name: userResultado.dataValues.first_name + ' ' + userResultado.dataValues.last_name,
                 email: userResultado.dataValues.email,
-                age: userResultado.dataValues.age,
-                profile_linkedin: userResultado.dataValues.profile_linkedin,
-                profile_photo: userResultado.dataValues.profile_photo,
-                job_resume: userResultado.dataValues.job_resume,
+                //age: userResultado.dataValues.age,
+                //profile_linkedin: userResultado.dataValues.profile_linkedin,
+                //profile_photo: userResultado.dataValues.profile_photo,
+                //job_resume: userResultado.dataValues.job_resume,
                 encrypted_password: userResultado.dataValues.encrypted_password,
                 is_admin: userResultado.dataValues.is_admin,
-                active: userResultado.dataValues.active
+                //active: userResultado.dataValues.active
             }
             return user;
         } else {
