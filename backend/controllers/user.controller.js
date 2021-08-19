@@ -18,15 +18,9 @@ async function loginController(req, res) {
 
 async function registerController(req, res) {
     try {
-        //let userBody = JSON.parse(req.body.json);
-        //console.log(userBody)
-        //let user = { email: userBody.email, first_name: userBody.nombre, last_name: userBody.apellido, password: userBody.password };
-        //const createResult = await UserCreate(user);
         let user = new User({ email: req.body.email, first_name: req.body.nombre, last_name: req.body.apellidos, encrypted_password: req.body.password });
         const createResult = await user.createUser();
-        //console.log('Dentro de register');
-        //console.log(createResult);
-        res.status(200).json({ status: 'Usuario creado ' + createResult.dataValues.email });
+        res.status(200).json({ message: 'Usuario creado ' + createResult.dataValues.email });
     } catch (error) {
         res.status(409).json({ message: 'Error al crear un usuario: ' + error.message }); //409 Conflict
     }
@@ -42,7 +36,7 @@ async function deleteController(req, res) {
         //console.log(user_to_delete);
         const delete_status = await user_to_delete.deleteUser(result.user_id);
         if (delete_status[0]) {
-            res.status(200).json({ status: 'Usuario eliminado' });
+            res.status(200).json({ message: 'Usuario eliminado' });
         }
     } catch (error) {
         res.status(412).json({ message: 'Error al borrar usuario: ' + error.message }); //412 Precondition Failed  
@@ -51,7 +45,7 @@ async function deleteController(req, res) {
 
 async function editController(req, res) {
     try {
-        console.log('EditController');
+        //console.log('EditController');
         let user_id = req.params.id;
         let data = { first_name: req.body.nombre, last_name: req.body.apellidos, is_admin: req.body.is_admin };
 
@@ -60,7 +54,7 @@ async function editController(req, res) {
 
         const updateResult = await user_to_edit.updateUser(user_id, data);
 
-        res.status(200).json({ status: 'Usuario actualizado correctamente' });
+        res.status(200).json({ message: 'Usuario actualizado correctamente' });
     } catch (error) {
         res.status(409).json({ message: 'Error al editar usuario: ' + error.message }); //409 Conflict
     }
@@ -88,7 +82,7 @@ async function listUsers(req, res) {
                 active: element.dataValues.active
             });
         }
-        res.status(200).json(UserList);
+        res.status(200).json({ message: 'Lista de usuarios', data: UserList });
     } catch (error) {
         res.status(412).json({ message: 'Error al listar todos los usuarios: ' + error.message }); //412 Precondition Failed  
     }
@@ -98,7 +92,7 @@ async function recoverPassword(req, res) {
     try {
         console.log('recuperar contraseña')
         let resultado = await changePassword(req.body.email, req.body.newPassword);
-        res.status(200).json({ status: 'Usuario actualizado correctamente' });
+        res.status(200).json({ message: 'Usuario actualizado correctamente' });
     } catch (error) {
         res.status(412).json({ message: 'Error en cambio de contraseña : ' + error.message }); //412 Precondition Failed  
     }

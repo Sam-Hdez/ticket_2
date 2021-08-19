@@ -2,8 +2,9 @@ const jwt = require('jsonwebtoken');
 
 const generarToken = async(payload) => {
     try {
-        delete payload.password;
-        const token = jwt.sign({ data: payload }, process.env.JWT_SEED, { expiresIn: '10min' }); //30 min solo por pruebas
+        delete payload.encrypted_password;
+        //console.log(payload);
+        const token = jwt.sign({ data: payload }, process.env.JWT_SEED, { expiresIn: '1h' }); //30 min solo por pruebas
         return token;
     } catch (error) {
         throw new Error('Error al generar Token: ' + error);
