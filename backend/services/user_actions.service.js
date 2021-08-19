@@ -8,6 +8,33 @@ async function createAddress(data) {
     }
 }
 
+async function updateAddress(data) {
+    try {
+        return await AddressService.editAddress(data);
+    } catch (error) {
+        throw new Error(error.message)
+    }
+}
+
+async function dropAddress(data) {
+    try {
+        return await AddressService.deleteAddress(data);
+    } catch (error) {
+        throw new Error(error.message)
+    }
+}
+
+async function allAddress(data) {
+    try {
+        return await AddressService.addressesUser(data);
+    } catch (error) {
+        throw new Error(error.message)
+    }
+}
+
 module.exports = {
     createAddress,
+    updateAddress,
+    dropAddress,
+    allAddress
 }

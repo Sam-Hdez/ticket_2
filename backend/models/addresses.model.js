@@ -106,7 +106,7 @@ class Address {
 
 async function AllAddressUser(user) {
     try {
-        let listAddress = await Addresses.findAll({ where: { user_id: user, active: 1 } });
+        let listAddress = await Addresses.findAll({ where: { user_id: user, active: 1 }, attributes: ['address_id', 'country', 'city', 'outside_number', 'inside_number', 'home_references'] });
         return listAddress;
     } catch (error) {
         throw new Error('Error en la función AllAddressUser: ' + error.message);
