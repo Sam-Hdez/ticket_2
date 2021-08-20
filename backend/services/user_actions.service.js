@@ -1,4 +1,5 @@
 const AddressService = require('../services/addresses.service');
+const SkillService = require('../services/skills.service');
 
 async function createAddress(data) {
     try {
@@ -32,9 +33,54 @@ async function allAddress(data) {
     }
 }
 
+async function createSkill(data) {
+    try {
+        return await SkillService.newSkill(data);
+    } catch (error) {
+        throw new Error(error.message)
+    }
+}
+
+async function updateSkill(data) {
+    try {
+        return await SkillService.editSkill(data);
+    } catch (error) {
+        throw new Error(error.message)
+    }
+}
+
+async function dropSkill(data) {
+    try {
+        return await SkillService.deleteSkill(data);
+    } catch (error) {
+        throw new Error(error.message)
+    }
+}
+
+async function allSkill(data) {
+    try {
+        return await SkillService.skillsUser(data);
+    } catch (error) {
+        throw new Error(error.message)
+    }
+}
+
+async function allIdsSkill(data) {
+    try {
+        return await SkillService.skillsIdsUser(data);
+    } catch (error) {
+        throw new Error(error.message)
+    }
+}
+
 module.exports = {
     createAddress,
     updateAddress,
     dropAddress,
-    allAddress
+    allAddress,
+    createSkill,
+    updateSkill,
+    dropSkill,
+    allSkill,
+    allIdsSkill
 }
