@@ -1,4 +1,5 @@
 const { sequelize, DataTypes, Op } = require('../db/conexion');
+const { Enterprises } = require('./enterprises.model');
 
 const Catalogs = sequelize.define('catalogs', {
     catalog_id: {
@@ -29,82 +30,76 @@ const Catalogs = sequelize.define('catalogs', {
 });
 
 class Catalog {
+    constructor(data){
+        this.enterprise_id = data.enterprise_id;
+        this.catalog_name = data.catalog_name;
+    }
 
     /**
-     * Crea un miembro de un circulo de una empresa
-     * @param {Object} memberCircleEnterprise
-     * @param {number} memberCircleEnterprise.typeRelation
-     * @param {number?} memberCircleEnterprise.circleId
-     * @param {number?} memberCircleEnterprise.enterpriseId
-     * @param {number} memberCircleEnterprise.userId
-     * @returns {Promise<CreateOptions<Model["_attributes"]> extends ({returning: false} | {ignoreDuplicates: true}) ? void : Model<TModelAttributes, TCreationAttributes>>}
+     * Crea un nuevo catalogo
+     * @param {string} catalogName
      */
-    async createMemberCircleEnterprise(memberCircleEnterprise) {
+    async createCatalog() {
         try {
-            return MembersCircleEnterprises.create({
-                type_relation: memberCircleEnterprise.typeRelation,
-                circle_id: (memberCircleEnterprise.typeRelation == 2) ? null : memberCircleEnterprise.circleId,
-                enterprise_id: (memberCircleEnterprise.typeRelation == 1) ? null : memberCircleEnterprise.enterpriseId,
-                user_id: memberCircleEnterprise.userId,
+            const catalogcreate = await Catalogs.create ({
+                enterprise_id: this.enterprise_id,
+                catalog_name: this.catalog_name,
             });
-        } catch (e) {
-            throw new Error(e);
+            return catalogcreate;
+        } catch (error) {
+            throw new Error('Error en la función createCatalog: ' + error.message);
         }
     }
 
     /**
-     *
+     * Actualiza datos de un catalogo
      * @param {Object} data
-     * @param {number} data.typeRelation
-     * @param {number?} data.circleId
-     * @param {number?} data.enterpriseId
-     * @param {number} data.userId
-     * @param {number} data.id
-     * @returns {Promise<[number, Model<TModelAttributes, TCreationAttributes>[]]>}
+     * @param {string} data.name Nombre del catalogo.
+     * @param {number} catalog_id Id del catalogo.
      */
-    async updateMemberCircleEnterprise(data) {
+     async updateCatalog(id, data) {
         try {
-            return MembersCircleEnterprises.update({
-                type_relation: data.typeRelation,
-                circle_id: (data.typeRelation == 2) ? null : data.circleId,
-                enterprise_id: (data.typeRelation == 1) ? null : data.enterpriseId,
-                user_id: data.userId,
+            let catalog_status = await Catalogs.update({
+                catalog_name: data.catalog_name,
             }, {
                 where: {
-                    relation_circle_id: data.id,
-                    active: true
+                    catalog_id: id
                 }
             });
-        } catch (e) {
-            throw new Error(e);
+            return catalog_status;
+        } catch (error) {
+            throw new Error('Error en la función updateCatalog: ' + error.message);
         }
     }
 
     /**
-     *
+     * Borra un catalogo de la base de datos
      * @param {number} id
-     * @returns {Promise<[number, Model<TModelAttributes, TCreationAttributes>[]]>}
      */
-    async deleteMemberCircleEnterprise (id) {
+     async deleteCatalog(id) {
         try {
-            return MembersCircleEnterprises.update({
-                active: false
-            }, {where: {relation_circle_id: id}});
-        } catch (e) {
-            throw new Error(e);
-        }
-    }
-
-    /**
-     *
-     * @param {number} id
-     * @returns {Promise<Model<TModelAttributes, TCreationAttributes> | null>}
-     */
-    async getMemberCircleEnterpriseById(id) {
-        try {
-            return MembersCircleEnterprises.findOne({
+            let catalog_status = await Catalogs.update({
+                active: false,
+            }, {
                 where: {
-                    relation_circle_id: id,
+                    catalog_id: id
+                }
+            });
+            return catalog_status;
+        } catch (error) {
+            throw new Error('Error en la función deleteCatalog: ' + error.message);
+        }
+    }
+
+    /**
+     * Obtén el registro de un catalogo por su ID
+     * @param {number} id
+     */
+    async getCatalogById(id) {
+        try {
+            return Catalogs.findOne({
+                where: {
+                    catalog_id: id,
                     active: true
                 },
                 attributes: {
@@ -115,18 +110,42 @@ class Catalog {
                     ]
                 }
             });
-        } catch (e) {
-            throw new Error(e);
+        } catch (error) {
+            throw new Error('Error en la función getCatalogById: ' + error.message);
         }
     }
 
     /**
-     *
+     * Obtén el registro de un catalogo por su nombre
+     * @param {string} name
+     */
+    async getCatalogByName(name) {
+        try {
+            return Catalogs.findOne({
+                where: {
+                    catalog_name: name,
+                    active: true
+                },
+                attributes: {
+                    exclude: [
+                        'updated_at',
+                        'created_at',
+                        'active'
+                    ]
+                }
+            });
+        } catch (error) {
+            throw new Error('Error en la función getCatalogByName: ' + error.message);
+        }
+    }
+
+    /**
+     * Obtén una lista de todos los catalogos
      * @returns {Promise<Model<TModelAttributes, TCreationAttributes>[]>}
      */
-    async getAllMembersCirclesEnterprises() {
+    async getAllCatalog() {
         try {
-            return MembersCircleEnterprises.findAll({
+            return Catalogs.findAll({
                 where: {
                     active: true
                 },
@@ -138,11 +157,10 @@ class Catalog {
                     ]
                 }
             });
-        } catch (e) {
-            throw new Error(e);
+        } catch (error) {
+            throw new Error('Error en la función getAllCatalog: ' + error.message);
         }
     }
-
 }
 
 async function CreateTableCatalogs() {
@@ -151,4 +169,6 @@ async function CreateTableCatalogs() {
 
 module.exports = {
     CreateTableCatalogs,
+    Catalog,
+    Catalogs
 }
