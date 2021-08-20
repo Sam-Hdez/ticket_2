@@ -70,13 +70,13 @@ class Hiring {
     async createHiring() {
         try {
             const hiringcreate = await Hirings.create ({
-                enterprise_id = this.enterprise_id,
-                hiring_name = this.hiring_name,
-                hiring_description = this.hiring_description,
-                soft_skills = this.soft_skills,
-                hard_skills = this.hard_skills,
-                we_offer = this.we_offer,
-                salary = this.salary
+                enterprise_id: this.enterprise_id,
+                hiring_name: this.hiring_name,
+                hiring_description: this.hiring_description,
+                soft_skills: this.soft_skills,
+                hard_skills: this.hard_skills,
+                we_offer: this.we_offer,
+                salary: this.salary
             });
             return hiringcreate;
         } catch (error) {
@@ -90,13 +90,13 @@ class Hiring {
      async updatehiring(id, data) {
         try {
             let hiring_status = await Hirings.update({
-                enterprise_id = this.enterprise_id,
-                hiring_name = this.hiring_name,
-                hiring_description = this.hiring_description,
-                soft_skills = this.soft_skills,
-                hard_skills = this.hard_skills,
-                we_offer = this.we_offer,
-                salary = this.salary
+                enterprise_id: this.enterprise_id,
+                hiring_name: this.hiring_name,
+                hiring_description: this.hiring_description,
+                soft_skills: this.soft_skills,
+                hard_skills: this.hard_skills,
+                we_offer: this.we_offer,
+                salary: this.salary
             }, {
                 where: {
                     hiring_id: id

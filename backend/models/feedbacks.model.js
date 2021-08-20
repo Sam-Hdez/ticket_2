@@ -76,13 +76,13 @@ class Feedback {
     async createFeedback() {
         try {
             const feedbackcreate = await Feedbacks.create ({
-                user_id = this.user_id,
-                relation_circle_id = this.relation_circle_id,
-                skill_id = this.skill_id,
-                points = this.points,
-                feedback = this.feedback,
-                visibility = this.visibility,
-                is_general_feedback = this.is_general_feedback
+                user_id: this.user_id,
+                relation_circle_id: this.relation_circle_id,
+                skill_id: this.skill_id,
+                points: this.points,
+                feedback: this.feedback,
+                visibility: this.visibility,
+                is_general_feedback: this.is_general_feedback
             });
             return feedbackcreate;
         } catch (error) {
@@ -96,13 +96,13 @@ class Feedback {
      async updatefeedback(id, data) {
         try {
             let feedback_status = await Feedbacks.update({
-                user_id = this.user_id,
-                relation_circle_id = this.relation_circle_id,
-                skill_id = this.skill_id,
-                points = this.points,
-                feedback = this.feedback,
-                visibility = this.visibility,
-                is_general_feedback = this.is_general_feedback
+                user_id: this.user_id,
+                relation_circle_id: this.relation_circle_id,
+                skill_id: this.skill_id,
+                points: this.points,
+                feedback: this.feedback,
+                visibility: this.visibility,
+                is_general_feedback: this.is_general_feedback
             }, {
                 where: {
                     feedback_id: id
