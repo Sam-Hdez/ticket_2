@@ -36,7 +36,7 @@ const deleteAddress = async(data) => {
 const addressesUser = async(data) => {
     try {
         let addresses = await AllAddressUser(data);
-        console.log(addresses);
+        //console.log(addresses);
         return addresses;
     } catch (error) {
         throw new Error('Error en la función addressesUser: ' + error.message)

@@ -15,11 +15,13 @@ const userRoutes = require('./routes/user.routes');
 const enterpriseRoutes = require('./routes/enterprise.routes');
 const userCircleRoutes = require('./routes/userCircle.routes');
 const addressRoutes = require('./routes/address.routes');
+const skillRoutes = require('./routes/skills.routes');
 
 app.use('/user', userRoutes);
 app.use('/enterprises', enterpriseRoutes);
 app.use('/usercircles', userCircleRoutes);
 app.use('/address', addressRoutes);
+app.use('/skill', skillRoutes);
 
 async function server() {
     try {
