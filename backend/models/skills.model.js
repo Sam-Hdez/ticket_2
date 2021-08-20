@@ -90,10 +90,23 @@ class Skill {
 
 async function AllSkillsUser(user) {
     try {
-        let listAddress = await Skills.findAll({ where: { user_id: user, active: 1 } });
-        return listAddress;
+        let listSkill = await Skills.findAll({ where: { user_id: user, active: 1 } });
+        return listSkill;
     } catch (error) {
         throw new Error('Error en la función AllSkillsUser: ' + error.message);
+    }
+}
+
+async function AllSkillsUserIds(user) {
+    try {
+        let listSkill = await Skills.findAll({ where: { user_id: user, active: 1 }, attributes: ['skill_id'] });
+        let skills_ids = [];
+        listSkill.forEach(skill => {
+            skills_ids.push(skill.dataValues.skill_id);
+        });
+        return skills_ids;
+    } catch (error) {
+        throw new Error('Error en la función getMonthsIds: ' + error.message);
     }
 }
 
@@ -101,4 +114,5 @@ module.exports = {
     CreateTableSkills,
     Skill,
     AllSkillsUser,
+    AllSkillsUserIds
 }
