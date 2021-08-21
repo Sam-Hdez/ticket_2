@@ -1,5 +1,5 @@
 const { obtenerIdUsser } = require('../services/jwt.service');
-const { createAddress, updateAddress, dropAddress, allAddress, createSkill, allSkill, updateSkill, dropSkill, allIdsSkill } = require('../services/user_actions.service');
+const { createAddress, updateAddress, dropAddress, allAddress, createSkill, allSkill, updateSkill, dropSkill, allIdsSkill, createHobby, updateHobby, dropHobby, allHobbies } = require('../services/user_actions.service');
 
 async function CreateAddressUser(req, res) {
     try {
@@ -89,6 +89,50 @@ async function AllSkillUser(req, res) {
     }
 }
 
+async function CreateHobbyUser(req, res) {
+    try {
+        const token = req.headers.authorization.split(' ')[1];
+        let user = await obtenerIdUsser(token);
+
+        let hobby = { user_id: user, hobby_name: req.body.hobby_name }
+        let status_hobby = await createHobby(hobby);
+        res.status(200).json({ message: 'Hobby creado: ' + status_hobby.hobby_name });
+    } catch (error) {
+        res.status(502).json({ message: 'Error al crear hobby: ' + error.message });;
+    }
+}
+
+async function UpdateHobbyUser(req, res) {
+    try {
+        let hobby = { hobby_id: req.body.hobby_id, hobby_name: req.body.hobby_name }
+        let status_hobby = await updateHobby(hobby);
+        res.status(200).json({ message: 'Hobby actualizado: ' + status_hobby.hobby_name });
+    } catch (error) {
+        res.status(502).json({ message: 'Error al actualizar hobby: ' + error.message });;
+    }
+}
+
+async function DeleteHobbyUser(req, res) {
+    try {
+        let hobby = { hobby_id: req.body.hobby_id, hobby_name: req.body.hobby_name }
+        let status_hobby = await dropHobby(hobby);
+        res.status(200).json({ message: 'Hobby eliminado' });
+    } catch (error) {
+        res.status(502).json({ message: 'Error al eliminar hobby: ' + error.message });;
+    }
+}
+
+async function AllHobbyUser(req, res) {
+    try {
+        const token = req.headers.authorization.split(' ')[1];
+        let user = await obtenerIdUsser(token);
+        let status_hobby = await allHobbies(user);
+        res.status(200).json({ message: 'Lista de hobbies', data: status_hobby });
+    } catch (error) {
+        res.status(502).json({ message: 'Error al listar hobbies: ' + error.message });;
+    }
+}
+
 module.exports = {
     CreateAddressUser,
     UpdateAddressUser,
@@ -98,4 +142,8 @@ module.exports = {
     UpdateSkillUser,
     DeleteSkillUser,
     AllSkillUser,
+    CreateHobbyUser,
+    UpdateHobbyUser,
+    DeleteHobbyUser,
+    AllHobbyUser
 }

@@ -94,7 +94,7 @@ class Skill {
 
 async function AllSkillsUser(user) {
     try {
-        let listSkill = await Skills.findAll({ where: { user_id: user, active: 1 } });
+        let listSkill = await Skills.findAll({ where: { user_id: user, active: 1 }, attributes: ['skill_id', 'type_skill', 'skill_name'] });
         return listSkill;
     } catch (error) {
         throw new Error('Error en la función AllSkillsUser: ' + error.message);

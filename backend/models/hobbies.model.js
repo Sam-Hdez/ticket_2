@@ -87,7 +87,7 @@ class Hobby {
 
 async function AllHobbiesUser(user) {
     try {
-        let listHobbies = await Hobbies.findAll({ where: { user_id: user, active: 1 } });
+        let listHobbies = await Hobbies.findAll({ where: { user_id: user, active: 1 }, attributes: ['hobby_id', 'hobby_name'] });
         return listHobbies;
     } catch (error) {
         throw new Error('Error en la función AllHobbiesUser: ' + error.message);

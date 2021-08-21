@@ -1,5 +1,6 @@
-const AddressService = require('../services/addresses.service');
-const SkillService = require('../services/skills.service');
+const AddressService = require('./addresses.service');
+const SkillService = require('./skills.service');
+const HobbiesService = require('./hobbies.service');
 
 async function createAddress(data) {
     try {
@@ -73,6 +74,38 @@ async function allIdsSkill(data) {
     }
 }
 
+async function createHobby(data) {
+    try {
+        return await HobbiesService.newHobby(data);
+    } catch (error) {
+        throw new Error(error.message)
+    }
+}
+
+async function updateHobby(data) {
+    try {
+        return await HobbiesService.editHobby(data);
+    } catch (error) {
+        throw new Error(error.message)
+    }
+}
+
+async function dropHobby(data) {
+    try {
+        return await HobbiesService.deleteHobby(data);
+    } catch (error) {
+        throw new Error(error.message)
+    }
+}
+
+async function allHobbies(data) {
+    try {
+        return await HobbiesService.hobbiesUser(data);
+    } catch (error) {
+        throw new Error(error.message)
+    }
+}
+
 module.exports = {
     createAddress,
     updateAddress,
@@ -82,5 +115,9 @@ module.exports = {
     updateSkill,
     dropSkill,
     allSkill,
-    allIdsSkill
+    allIdsSkill,
+    createHobby,
+    updateHobby,
+    dropHobby,
+    allHobbies
 }
