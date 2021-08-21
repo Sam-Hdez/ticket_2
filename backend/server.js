@@ -13,22 +13,8 @@ app.use(express.json());
 app.use(cors());
 app.use(require('morgan')('dev'));
 
-const userRoutes = require('./routes/user.routes');
-const enterpriseRoutes = require('./routes/enterprise.routes');
-const userCircleRoutes = require('./routes/userCircle.routes');
-const addressRoutes = require('./routes/address.routes');
-const skillRoutes = require('./routes/skills.routes');
-const membersCircleEnterprisesRoutes = require('./routes/membersCircleEnterprises.routes');
-
-app.get('/', (req,res) => {
-    return res.status(200).json({ msg: `El servidor esta funcionando correctamente :D`});
-});
-app.use('/user', userRoutes);
-app.use('/enterprises', enterpriseRoutes);
-app.use('/usercircles', userCircleRoutes);
-app.use('/address', addressRoutes);
-app.use('/skill', skillRoutes);
-app.use('/membersCircleEnterprises', membersCircleEnterprisesRoutes);
+all_routes = require('./routes/all.routes');
+app.use(all_routes);
 
 // El manejador de errores debe ir abajo de las rutas,
 // suponemos que si ninguna ruta llega a manejar la petición
@@ -48,13 +34,13 @@ async function server() {
 }
 
 server()
-    .then( () => {
+    .then(() => {
         console.log(`---------------------------------------`);
         console.log(`Inicio de la aplicación SATISFACTORIA.`);
         console.log(`Host: http://${process.env.HOST}:${process.env.PORT}`);
         console.log(`---------------------------------------`);
     })
-    .catch( (error) => {
+    .catch((error) => {
         console.log(`---------------------------------------`);
         console.log(`Error al iniciar la aplicación (REVISA EL ERROR DE LA APLICACIÓN): \n${error}`);
         console.log(`---------------------------------------`);
@@ -68,6 +54,7 @@ async function assertDatabaseConnection() {
         throw new Error('Imposible conectarse a la base de datos:\n' + error.message);
     }
 }
+
 function startServer() {
     app.listen(process.env.PORT, function() {
         console.log(`Sistema iniciado en http://${process.env.HOST}:${process.env.PORT}`);
