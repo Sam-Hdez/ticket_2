@@ -118,7 +118,11 @@ class elementCatalog {
 }
 
 async function CreateTableElementsCatalogs() {
-    await ElementsCatalogs.sync();
+    try {
+        await ElementsCatalogs.sync();
+    } catch (e) {
+        throw new Error(`Error al sincronizar el modelo ElementsCatalogs: ${e.message}`);
+    }
 }
 
 module.exports = {

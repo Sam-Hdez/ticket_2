@@ -14,20 +14,24 @@ const { CreateTableApplies } = require('../models/applies.model');
 
 
 async function CreateTables() {
-    CreateTableUsers();
-    LoadingOneAdmin();
-    CreateTableEnterprises();
-    CreateTableAddresses();
-    CreateTableDegrees();
-    CreateTableHobbies();
-    CreateTableCatalogs();
-    CreateTableElementsCatalogs();
-    CreateTableUserCircles();
-    CreateTableMembersCircleEnterprises();
-    CreateTableSkills();
-    CreateTableFeedbacks();
-    CreateTableHirings();
-    CreateTableApplies();
+    try {
+        await CreateTableUsers();
+        await LoadingOneAdmin();
+        await CreateTableEnterprises();
+        await CreateTableAddresses();
+        await CreateTableDegrees();
+        await CreateTableHobbies();
+        await CreateTableCatalogs();
+        await CreateTableElementsCatalogs();
+        await CreateTableUserCircles();
+        await CreateTableMembersCircleEnterprises();
+        await CreateTableSkills();
+        await CreateTableFeedbacks();
+        await CreateTableHirings();
+        await CreateTableApplies();
+    } catch (e) {
+        throw new Error(e.message);
+    }
 }
 
 module.exports = {

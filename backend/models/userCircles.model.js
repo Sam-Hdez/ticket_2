@@ -192,7 +192,11 @@ class UserCircle {
 }
 
 async function CreateTableUserCircles() {
-    await UserCircles.sync();
+    try {
+        await UserCircles.sync();
+    } catch (e) {
+        throw new Error(`Error al sincronizar el modelo UserCircles: ${e.message}`);
+    }
 }
 
 module.exports = {

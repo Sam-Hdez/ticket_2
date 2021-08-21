@@ -1,5 +1,8 @@
 
 const { Enterprise } = require('../models/enterprises.model');
+const { Hiring } = require('../models/hirings.model');
+const { Catalog } = require('../models/catalogs.model');
+const { MemberCircleEnterprise } = require('../models/membersCircleEnterprises.model');
 
 const enterprise = new Enterprise();
 
@@ -50,11 +53,24 @@ const deleteEnterprise = async (id) => {
 /**
  * Obtiene una empresa por su ID
  * @param {number} id
- * @returns {Promise<Model<TModelAttributes, TCreationAttributes>|null>}
+ * @returns {Object}
  */
 const getEnterpriseById = async (id) => {
     try {
-        return enterprise.getEnterpriseById(id);
+        const enterpriseData = await enterprise.getEnterpriseById(id);
+        const hiring = new Hiring({});
+        const hiringData = await hiring.getHiringsByEnterpriseId(enterpriseData.enterprise_id);
+        const catalog = new Catalog({});
+        const catalogData = await catalog.getCatalogByEnterpriseId(enterpriseData.enterprise_id);
+        const memberCircleEnterprise = new MemberCircleEnterprise();
+        const memberCircleEnterpriseData = await memberCircleEnterprise.getMemberCircleEnterpriseByEnterpriseId(enterpriseData.enterprise_id);
+
+        return {
+            enterpriseData,
+            hiringData,
+            catalogData,
+            memberCircleEnterpriseData
+        }
     } catch (e) {
         throw new Error(e);
     }
@@ -85,11 +101,27 @@ const getAllEnterprises = async () => {
     }
 }
 
+const getEnterprises = async (data) => {
+    const enterpriseData =  data.name ? await enterprise.getEnterpriseByName(data.name) :
+        data.id ? await enterprise.getEnterpriseById(data.id) :
+            await enterprise.getAllEnterprises();
+    console.log(enterpriseData);
+    const hiring = new Hiring(null);
+    //const hiringData = await hiring.getHiringsByEnterpriseId(enterpriseData.enterprise_id);
+
+
+    return {
+        ok: true
+    }
+
+}
+
 module.exports = {
     newEnterprise,
     editEnterprise,
     deleteEnterprise,
     getEnterpriseById,
     getEnterpriseByName,
-    getAllEnterprises
+    getAllEnterprises,
+    getEnterprises
 }

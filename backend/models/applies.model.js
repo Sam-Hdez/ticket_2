@@ -45,7 +45,11 @@ const Applies = sequelize.define('applies', {
 });
 
 async function CreateTableApplies() {
-    await Applies.sync();
+    try {
+        await Applies.sync();
+    } catch (e) {
+        throw new Error(`Error al sincronizar el modelo Applies: ${e.message}`);
+    }
 }
 
 class Apply {

@@ -45,7 +45,11 @@ const Addresses = sequelize.define('addresses', {
 });
 
 async function CreateTableAddresses() {
-    await Addresses.sync();
+    try {
+        await Addresses.sync();
+    } catch (e) {
+        throw new Error(`Error al sincronizar el modelo Addresses: ${e.message}`);
+    }
 }
 
 class Address {

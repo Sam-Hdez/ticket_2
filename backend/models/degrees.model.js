@@ -37,7 +37,11 @@ const Degrees = sequelize.define('degrees', {
 });
 
 async function CreateTableDegrees() {
-    await Degrees.sync();
+    try {
+        await Degrees.sync();
+    } catch (e) {
+        throw new Error(`Error al sincronizar el modelo Degrees: ${e.message}`);
+    }
 }
 
 class Degree {

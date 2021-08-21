@@ -150,10 +150,34 @@ class Hiring {
             throw new Error('Error en la función getHiringById: ' + error.message);
         }
     }
+
+    async getHiringsByEnterpriseId(id){
+        try {
+            return Hirings.findAll({
+                where: {
+                    enterprise_id: id,
+                },
+                attributes: {
+                    exclude: [
+                        'updated_at',
+                        'created_at',
+                        'active'
+                    ]
+                }
+            });
+        } catch (e) {
+            throw new Error(`Error en la función getHiringsByEnterpriseId `+ e.message);
+        }
+    }
+
 }
 
 async function CreateTableHirings() {
-    await Hirings.sync();
+    try {
+        await Hirings.sync();
+    } catch (e) {
+        throw new Error(`Error al sincronizar el modelo Hirings: ${e.message}`);
+    }
 }
 
 module.exports = {

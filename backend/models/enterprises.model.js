@@ -88,8 +88,8 @@ class Enterprise {
                 },
                 attributes: {
                     exclude: [
-                        'updated_at',
-                        'created_at',
+                        'updatedAt',
+                        'createdAt',
                         'active'
                     ]
                 }
@@ -158,7 +158,11 @@ class Enterprise {
 }
 
 async function CreateTableEnterprises() {
-    await Enterprises.sync();
+    try {
+        await Enterprises.sync();
+    } catch (e) {
+        throw new Error(`Error al sincronizar el modelo Enterprises: ${e.message}`);
+    }
 }
 
 module.exports = {

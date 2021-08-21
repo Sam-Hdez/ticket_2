@@ -31,22 +31,27 @@ async function editEnterprise(req, res) {
         res.status(502).send(e.message);
     }
 }
+async function getEnterpriseById(req, res) {
+    try {
+        const id = req.params.id;
+        const enterprise = await enterpriseService.getEnterpriseById(id);
+        res.status(200).json(enterprise);
+    } catch (e) {
+        res.status(502).json({
+            error: `${e.message}`
+        });
+    }
+}
 
 async function getEnterprise(req, res) {
     try {
         const data = req.query;
-        if(data.name) {
-            const enterprise = await enterpriseService.getEnterpriseByName(data.name);
-            return res.status(200).json(enterprise);
-        } else if(data.id) {
-            const enterprise = await enterpriseService.getEnterpriseById(data.id);
-            return res.status(200).json(enterprise);
-        } else {
-            const enterprises = await enterpriseService.getAllEnterprises();
-            res.status(200).json(enterprises);
-        }
+        const enterprises = await enterpriseService.getEnterprises(data);
+        res.status(200).json(enterprises);
     } catch (e) {
-        res.status(502).send(e.message);
+        res.status(502).json({
+            error: `${e.message}`
+        });
     }
 }
 
@@ -56,4 +61,5 @@ module.exports = {
     removeEnterprise,
     editEnterprise,
     getEnterprise,
+    getEnterpriseById
 }

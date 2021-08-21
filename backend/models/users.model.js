@@ -57,7 +57,11 @@ const Users = sequelize.define('users', {
 });
 
 async function CreateTableUsers() {
-    await Users.sync();
+    try {
+        await Users.sync();
+    } catch (e) {
+        throw new Error(`Error al sincronizar el modelo Users: ${e.message}`);
+    }
 }
 
 async function LoadingOneAdmin() {

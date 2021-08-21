@@ -161,10 +161,34 @@ class Catalog {
             throw new Error('Error en la función getAllCatalog: ' + error.message);
         }
     }
+
+    async getCatalogByEnterpriseId(id){
+        try {
+            return Catalogs.findAll({
+                where: {
+                    enterprise_id: id
+                },
+                attributes: {
+                    exclude: [
+                        'updatedAt',
+                        'createdAt',
+                        'active'
+                    ]
+                }
+            })
+        } catch (e) {
+            throw new Error('Error en la función getCatalogByEnterpriseId: ' + e.message);
+        }
+    }
+
 }
 
 async function CreateTableCatalogs() {
-    await Catalogs.sync();
+    try {
+        await Catalogs.sync();
+    } catch (e) {
+        throw new Error(`Error al sincronizar el modelo Catalogs: ${e.message}`);
+    }
 }
 
 module.exports = {

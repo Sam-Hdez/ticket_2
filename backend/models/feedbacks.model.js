@@ -159,7 +159,11 @@ class Feedback {
 }
 
 async function CreateTableFeedbacks() {
-    await Feedbacks.sync();
+    try {
+        await Feedbacks.sync();
+    } catch (e) {
+        throw new Error(`Error al sincronizar el modelo Feedbacks: ${e.message}`);
+    }
 }
 
 module.exports = {

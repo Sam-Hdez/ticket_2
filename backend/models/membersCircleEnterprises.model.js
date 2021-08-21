@@ -159,11 +159,34 @@ class MemberCircleEnterprise {
         }
     }
 
+    async getMemberCircleEnterpriseByEnterpriseId(id) {
+        try {
+            return MembersCircleEnterprises.findAll({
+                where: {
+                    enterprise_id: id
+                },
+                attributes: {
+                    exclude: [
+                        'updated_at',
+                        'created_at',
+                        'active'
+                    ]
+                }
+            });
+        } catch (e) {
+            throw new Error(e);
+        }
+    }
+
 }
 
 
 async function CreateTableMembersCircleEnterprises() {
-    await MembersCircleEnterprises.sync();
+    try {
+        await MembersCircleEnterprises.sync();
+    } catch (e) {
+        throw new Error(`Error al sincronizar el modelo MembersCircleEnterprises: ${e.message}`);
+    }
 }
 
 module.exports = {

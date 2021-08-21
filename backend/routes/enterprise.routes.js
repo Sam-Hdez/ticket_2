@@ -12,6 +12,12 @@ router.get('/',
     enterpriseController.getEnterprise
 );
 
+/* GET http://localhost:3000/enterprises/:id */
+/* Obtiene la empresa por id */
+router.get('/:id',
+    enterpriseController.getEnterpriseById
+);
+
 /* POST http://localhost:3000/enterprises/ */
 router.post('/',
     enterpriseMiddleware.validateCreateEnterprise,

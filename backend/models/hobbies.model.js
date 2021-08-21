@@ -29,7 +29,11 @@ const Hobbies = sequelize.define('hobbies', {
 });
 
 async function CreateTableHobbies() {
-    await Hobbies.sync();
+    try {
+        await Hobbies.sync();
+    } catch (e) {
+        throw new Error(`Error al sincronizar el modelo Hobbies: ${e.message}`);
+    }
 }
 
 class Hobby {

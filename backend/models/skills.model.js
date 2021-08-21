@@ -33,7 +33,11 @@ const Skills = sequelize.define('skills', {
 });
 
 async function CreateTableSkills() {
-    await Skills.sync();
+    try {
+        await Skills.sync();
+    } catch (e) {
+        throw new Error(`Error al sincronizar el modelo Skills: ${e.message}`);
+    }
 }
 
 class Skill {
