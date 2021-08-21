@@ -114,9 +114,24 @@ async function AllSkillsUserIds(user) {
     }
 }
 
+async function check_skill(data) {
+    try {
+        let skill = await Skills.findByPk(data);
+
+        if (skill === null) {
+            throw new Error('Skill not found');
+        } else {
+            return skill;
+        }
+    } catch (error) {
+        throw new Error('Error en la función check_skill: ' + error.message);
+    }
+}
+
 module.exports = {
     CreateTableSkills,
     Skill,
     AllSkillsUser,
-    AllSkillsUserIds
+    AllSkillsUserIds,
+    check_skill
 }

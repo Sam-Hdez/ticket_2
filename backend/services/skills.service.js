@@ -1,4 +1,4 @@
-const { Skill, AllSkillsUser, AllSkillsUserIds } = require('../models/skills.model');
+const { Skill, AllSkillsUser, AllSkillsUserIds, check_skill } = require('../models/skills.model');
 
 const newSkill = async(data) => {
     try {
@@ -53,10 +53,19 @@ const skillsIdsUser = async(data) => {
     }
 }
 
+const checkSkill = async(data) => {
+    try {
+        let skill = await check_skill(data);
+    } catch (error) {
+        throw new Error('Error en la función checkSkill: ' + error.message)
+    }
+}
+
 module.exports = {
     newSkill,
     editSkill,
     deleteSkill,
     skillsUser,
     skillsIdsUser,
+    checkSkill
 }

@@ -1,4 +1,4 @@
-const { Hobby, AllHobbiesUser } = require('../models/hobbies.model');
+const { Hobby, AllHobbiesUser, check_hobby } = require('../models/hobbies.model');
 
 const newHobby = async(data) => {
     try {
@@ -43,9 +43,18 @@ const hobbiesUser = async(data) => {
     }
 }
 
+const checkHobby = async(data) => {
+    try {
+        let hobby = await check_hobby(data);
+    } catch (error) {
+        throw new Error('Error en la función checkHobby: ' + error.message)
+    }
+}
+
 module.exports = {
     newHobby,
     editHobby,
     deleteHobby,
     hobbiesUser,
+    checkHobby
 }
