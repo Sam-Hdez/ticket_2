@@ -117,8 +117,23 @@ async function AllAddressUser(user) {
     }
 }
 
+async function check_address(data) {
+    try {
+        let address = await Addresses.findByPk(data);
+
+        if (address === null) {
+            throw new Error('Address not found');
+        } else {
+            return address;
+        }
+    } catch (error) {
+        throw new Error('Error en la función check_address: ' + error.message);
+    }
+}
+
 module.exports = {
     CreateTableAddresses,
     Address,
     AllAddressUser,
+    check_address,
 }

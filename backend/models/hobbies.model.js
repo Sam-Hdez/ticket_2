@@ -94,8 +94,23 @@ async function AllHobbiesUser(user) {
     }
 }
 
+async function check_hobby(data) {
+    try {
+        let hobby = await Hobbies.findByPk(data);
+
+        if (hobby === null) {
+            throw new Error('Hobby not found');
+        } else {
+            return hobby;
+        }
+    } catch (error) {
+        throw new Error('Error en la función check_hobby: ' + error.message);
+    }
+}
+
 module.exports = {
     CreateTableHobbies,
     Hobby,
     AllHobbiesUser,
+    check_hobby,
 }

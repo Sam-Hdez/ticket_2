@@ -1,4 +1,4 @@
-const { Address, AllAddressUser } = require('../models/addresses.model');
+const { Address, AllAddressUser, check_address } = require('../models/addresses.model');
 
 const newAddress = async(data) => {
     try {
@@ -43,9 +43,18 @@ const addressesUser = async(data) => {
     }
 }
 
+const checkAddress = async(data) => {
+    try {
+        let address = await check_address(data);
+    } catch (error) {
+        throw new Error('Error en la función checkAddress: ' + error.message)
+    }
+}
+
 module.exports = {
     newAddress,
     editAddress,
     deleteAddress,
-    addressesUser
+    addressesUser,
+    checkAddress
 }
