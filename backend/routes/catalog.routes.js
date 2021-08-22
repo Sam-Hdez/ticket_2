@@ -3,9 +3,9 @@ const router = express.Router();
 
 const { corsOption } = require('../middlewares/index.middleware');
 const catalogController = require('../controllers/catalog.controller');
-const { catalogMiddleware } = require('../middlewares/catalog.middleware');
+const { CatalogMiddleware } = require('../middlewares/catalog.middleware');
 
-const catalogMiddleware = new catalogMiddleware();
+const catalogMiddleware = new CatalogMiddleware();
 
 /* POST http://localhost:3000/catalog/ */
 router.post('/create',

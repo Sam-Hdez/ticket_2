@@ -44,3 +44,10 @@ async function AllSkillUser(req, res) {
         res.status(502).json({ message: 'Error al listar skills: ' + error.message });;
     }
 }
+
+module.exports = {
+    AllSkillUser,
+    DeleteSkillUser,
+    UpdateSkillUser,
+    CreateSkillUser
+}
