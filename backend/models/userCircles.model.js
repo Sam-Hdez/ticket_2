@@ -31,6 +31,14 @@ const UserCircles = sequelize.define('users_circles', {
 
 class UserCircle {
 
+    attributesExcluded = {
+        exclude: [
+            'updatedAt',
+            'createdAt',
+            'active'
+        ]
+    }
+
     /**
      *
      * @param {Object} circle
@@ -83,7 +91,7 @@ class UserCircle {
                 active: false
             }, {
                 where: {
-                    enterprise_id: id
+                    circle_id: id
                 }
             });
         } catch (e) {
@@ -101,13 +109,7 @@ class UserCircle {
                 where: {
                     active: true
                 },
-                attributes: {
-                    exclude: [
-                        'updated_at',
-                        'created_at',
-                        'active'
-                    ]
-                }
+                attributes: this.attributesExcluded
             });
         } catch (e) {
             throw new Error(e);
@@ -126,13 +128,7 @@ class UserCircle {
                     circle_id: id,
                     active: true
                 },
-                attributes: {
-                    exclude: [
-                        'updated_at',
-                        'created_at',
-                        'active'
-                    ]
-                }
+                attributes: this.attributesExcluded
             });
         } catch (e) {
             throw new Error(e);
@@ -151,13 +147,7 @@ class UserCircle {
                     user_id: userId,
                     active: true
                 },
-                attributes: {
-                    exclude: [
-                        'updated_at',
-                        'created_at',
-                        'active'
-                    ]
-                }
+                attributes: this.attributesExcluded
             });
         } catch (e) {
             throw new Error(e);
@@ -176,13 +166,7 @@ class UserCircle {
                     type_circle: type,
                     active: true
                 },
-                attributes: {
-                    exclude: [
-                        'updated_at',
-                        'created_at',
-                        'active'
-                    ]
-                }
+                attributes: this.attributesExcluded
             });
         } catch (e) {
             throw new Error(e);

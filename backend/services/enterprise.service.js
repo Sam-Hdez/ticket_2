@@ -13,7 +13,7 @@ const enterprise = new Enterprise();
  */
 const newEnterprise = async (enterpriseName) => {
     try {
-        if( !await enterprise.verifyIfEnterpriseExists(enterpriseName) ) //Si la empresa no existe, la creamos
+        if( !await enterprise.verifyIfEnterpriseExistsByName(enterpriseName) ) //Si la empresa no existe, la creamos
             return enterprise.createEnterprise(enterpriseName);
         return { msg: 'El nombre de la empresa ya existe' };
     } catch (e) {
@@ -58,6 +58,7 @@ const deleteEnterprise = async (id) => {
 const getEnterpriseById = async (id) => {
     try {
         const enterpriseData = await enterprise.getEnterpriseById(id);
+        if(!enterpriseData) return { error: `No se encontró la empresa con el id: ${id}`};
         const hiring = new Hiring({});
         const hiringData = await hiring.getHiringsByEnterpriseId(enterpriseData.enterprise_id);
         const catalog = new Catalog({});
@@ -101,27 +102,11 @@ const getAllEnterprises = async () => {
     }
 }
 
-const getEnterprises = async (data) => {
-    const enterpriseData =  data.name ? await enterprise.getEnterpriseByName(data.name) :
-        data.id ? await enterprise.getEnterpriseById(data.id) :
-            await enterprise.getAllEnterprises();
-    console.log(enterpriseData);
-    const hiring = new Hiring(null);
-    //const hiringData = await hiring.getHiringsByEnterpriseId(enterpriseData.enterprise_id);
-
-
-    return {
-        ok: true
-    }
-
-}
-
 module.exports = {
     newEnterprise,
     editEnterprise,
     deleteEnterprise,
     getEnterpriseById,
     getEnterpriseByName,
-    getAllEnterprises,
-    getEnterprises
+    getAllEnterprises
 }

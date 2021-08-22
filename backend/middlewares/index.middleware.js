@@ -1,5 +1,6 @@
 const corsOption = {
     origin: function(origin, callback) {
+        console.log("IP: " + origin);
         if (process.env.LISTA_BLANCA.indexOf(origin) !== -1) {
             //devuelve menos uno si el dato no esta dentro del array
             callback(null, true);

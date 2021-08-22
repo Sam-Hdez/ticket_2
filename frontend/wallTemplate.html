@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal Profile - Social Network</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Source+Serif+Pro:400,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/fonts/icomoon/style.css">
+  <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <link rel="stylesheet" href="./assets/bts.5/css/bootstrap.css">
+  <link rel="stylesheet" href="./assets/css/style_social_network.css">
+  <link rel="stylesheet" href="./assets/fontawesome.5/css/fontawesome.min.css">
+  <link rel="stylesheet" href="./assets/fontawesome.5/css/all.min.css">
+  <link rel="stylesheet" href="./assets/css/styles_into_personal_profile.css">
+</head>
+
+<body id="personal" cz-shortcut-listen="true">
+
+<!--Header with Nav -->
+<header class="text-right">
+  <form class="text-left search" method="GET">
+    <input name="q" type="text" placeholder="Search..">
+  </form>
+  <div class="second-icon menu-icon">
+            <span><a href="personal-profile.html" title="Profile"><span class="hidden-xs hidden-sm">Profile</span> <i class="fa fa-user" aria-hidden="true"></i></a>
+            </span>
+  </div>
+  <div class="second-icon menu-icon">
+            <span><a href="wall.html" title="Wall"><span class="hidden-xs hidden-sm">Wall</span> <i class="fa fa-database" aria-hidden="true"></i></a>
+            </span>
+  </div>
+</header>
+
+<aside class="sidebar">
+  <div class="toggle">
+    <a href="#" class="burger js-menu-toggle" data-toggle="collapse" data-target="#main-navbar">
+      <span></span>
+    </a>
+  </div>
+  <div class="side-inner">
+
+    <div class="profile">
+      <img src="assets/img/user.jpg" alt="Image" class="img-fluid">
+      <h3 class="name">Debby Williams</h3>
+      <span class="country">New York, USA</span>
+    </div>
+
+    <div class="counter d-flex justify-content-center">
+      <!-- <div class="row justify-content-center"> -->
+      <div class="col">
+        <strong class="number">892</strong>
+        <span class="number-label">Posts</span>
+      </div>
+      <div class="col">
+        <strong class="number">22.5k</strong>
+        <span class="number-label">Followers</span>
+      </div>
+      <div class="col">
+        <strong class="number">150</strong>
+        <span class="number-label">Following</span>
+      </div>
+      <!-- </div> -->
+    </div>
+
+    <div class="nav-menu">
+      <ul>
+        <li class="activeItem"><a href="#"><span class="icon-home me-3"></span>Feed</a></li>
+        <li><a href="#"><span class="icon-search2 me-3"></span>Explore</a></li>
+        <li><a href="#"><span class="icon-notifications me-3"></span>Notifications</a></li>
+        <li><a href="#"><span class="icon-location-arrow me-3"></span>Direct</a></li>
+        <li><a href="#"><span class="icon-pie-chart me-3"></span>Stats</a></li>
+        <li><a href="#"><span class="icon-sign-out me-3"></span>Sign out</a></li>
+      </ul>
+    </div>
+  </div>
+</aside>
+
+<main class="content-posts profile-content" style="margin-left: 0;">
+  <div class="banner-profile">
+  </div>
+
+  <div class="container-fluid container-posts">
+    <ul class="nav nav-tabs" role="tablist" >
+      <li class="nav-item">
+        <a id="personal-info" role="tab" class="nav-link" onclick="show_content('personal-info','content-personal-info');">Información Personal</a>
+      </li>
+      <li class="nav-item">
+        <a id="personal-skills" role="tab" class="nav-link gray" onclick="show_content('personal-skills','content-personal-skills')">Skills</a>
+      </li>
+      <li class="nav-item">
+        <a id="personal-applies" role="tab" class="nav-link gray" onclick="show_content('personal-applies','content-personal-applies')">Postulaciones</a>
+      </li>
+    </ul>
+
+    <div id="content-personal-info" class="card-post inicial">
+      <h1>Información Personal</h1>
+    </div>
+    <div id="content-personal-skills" class="card-post inicial">
+      <h1>Skills Personal</h1>
+    </div>
+    <div id="content-personal-applies" class="card-post inicial">
+      <h1>Mis Postulaciones</h1>
+    </div>
+  </div>
+</main>
+
+<script src="./assets/js/personal-profile-actions.js"></script>
+<script src="./assets/bts.5/js/bootstrap.bundle.min.js"></script>
+
+<script src="assets/jquery/jquery-3.6.0.min.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+
+</html>

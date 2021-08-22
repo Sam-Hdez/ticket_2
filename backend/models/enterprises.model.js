@@ -25,20 +25,22 @@ const Enterprises = sequelize.define('enterprises', {
 
 class Enterprise {
 
+    excludeAttributes = {
+        exclude: [
+            'updatedAt',
+            'createdAt',
+            'active'
+        ]
+    };
+
     /**
      * Crea una nueva empresa en la base de datos
-     * @param {string} enterpriseName
+     * @param {string} name
      * @returns {Promise<CreateOptions<Model["_attributes"]> extends ({returning: false} | {ignoreDuplicates: true}) ? void : Model<TModelAttributes, TCreationAttributes>>}
      */
-    async createEnterprise(enterpriseName) {
-        try {
-            return Enterprises.create({
-                enterprise_name: enterpriseName,
-            });
-        } catch (e) {
-            throw new Error(e);
-        }
-    }
+    createEnterprise = async name => Enterprises.create({
+        enterprise_name: name
+    }).catch((err) => { throw new Error(err) });
 
     /**
      * Actualiza datos de una empresa
@@ -48,29 +50,44 @@ class Enterprise {
      * @param {boolean?} data.system_owner Opcional modificar el dueño del sistema.
      * @returns {Promise<[number, Model<TModelAttributes, TCreationAttributes>[]]>}
      */
-    async updateEnterprise(data) {
+    updateEnterprise = async data => {
         try {
-            return Enterprises.update({
-                enterprise_name: data.name,
-                system_owner: data.system_owner || false,
-            }, {where: {enterprise_id: data.id}});
+            return await this.verifyIfEnterpriseExistsById(data.id) ?
+                await Enterprises.update({
+                    enterprise_name: data.name,
+                    system_owner: data.system_owner || false
+                }, {
+                    where: { enterprise_id: data.id }
+                }) :
+                { error: `No se encontró la empresa con el id: ${data.id}` }
         } catch (e) {
             throw new Error(e);
         }
     }
+
 
     /**
      * Borra una empresa de la base de datos
      * @param {number} id
      * @returns {Promise<[number, Model<TModelAttributes, TCreationAttributes>[]]>}
      */
-    async deleteEnterprise(id) {
+    deleteEnterprise = async id => Enterprises.update({
+        active: false
+    }, {
+        where: { enterprise_id: id }
+    }).catch((err) => { throw new Error(err) });
+
+    deleteEnterprise = async id => {
         try {
-            return Enterprises.update({
-                active: false
-            }, {where: {enterprise_id: id}});
+            return await this.verifyIfEnterpriseExistsById(id) ?
+                Enterprises.update({
+                    active: false
+                }, {
+                    where: { enterprise_id: id }
+                }) :
+                { error: `No se encontró la empresa con el id: ${id}` }
         } catch (e) {
-            throw new Error(e);
+
         }
     }
 
@@ -79,82 +96,54 @@ class Enterprise {
      * @param {number} id
      * @returns {Promise<Model<TModelAttributes, TCreationAttributes> | null>}
      */
-    async getEnterpriseById(id) {
-        try {
-            return Enterprises.findOne({
-                where: {
-                    enterprise_id: id,
-                    active: true
-                },
-                attributes: {
-                    exclude: [
-                        'updatedAt',
-                        'createdAt',
-                        'active'
-                    ]
-                }
-            });
-        } catch (e) {
-            throw new Error(e);
-        }
-    }
+    getEnterpriseById = async id => Enterprises.findOne({
+        where: {
+            enterprise_id: id,
+            active: true
+        },
+        attributes: this.excludeAttributes,
+    }).catch((err) => { throw new Error(err) });
 
     /**
      * Obtén el registro de una empresa por su nombre
      * @param {string} name
      * @returns {Promise<Model<TModelAttributes, TCreationAttributes> | null>}
      */
-    async getEnterpriseByName(name) {
-        try {
-            return Enterprises.findOne({
-                where: {
-                    enterprise_name: name,
-                    active: true
-                },
-                attributes: {
-                    exclude: [
-                        'updated_at',
-                        'created_at',
-                        'active'
-                    ]
-                }
-            });
-        } catch (e) {
-            throw new Error(e);
-        }
-    }
+    getEnterpriseByName = async name => Enterprises.findOne({
+        where: {
+            enterprise_name: name,
+            active: true
+        },
+        attributes: this.excludeAttributes
+    }).catch((err) => { throw new Error(err) });
 
     /**
-     * Obtén una lista de todas las empresas
+     * Obtén un arreglo de todas las empresas
      * @returns {Promise<Model<TModelAttributes, TCreationAttributes>[]>}
      */
-    async getAllEnterprises() {
-        try {
-            return Enterprises.findAll({
-                where: {
-                    active: true
-                },
-                attributes: {
-                    exclude: [
-                        'updated_at',
-                        'created_at',
-                        'active'
-                    ]
-                }
-            });
-        } catch (e) {
-            throw new Error(e);
-        }
-    }
+    getAllEnterprises = async () => Enterprises.findAll({
+        where: {
+            active: true
+        },
+        attributes: this.excludeAttributes
+    }).catch((err) => { throw new Error(err) });
+
 
     /**
      * Verifica si existe una empresa por su nombre
-     * @param {string} enterpriseName
+     * @param {string} name
      * @returns {Promise<Model<TModelAttributes, TCreationAttributes> | null>}
      */
-    async verifyIfEnterpriseExists(enterpriseName) {
-        return Enterprises.findOne({where: {enterprise_name: enterpriseName}});
-    }
+    verifyIfEnterpriseExistsByName = async name => Enterprises.findOne({where: {enterprise_name: name, active: true}})
+        .catch((err) => { throw new Error(err) });
+
+    /**
+     * Verifica si existe una empresa por su id
+     * @param {number} id
+     * @returns {Promise<Model<TModelAttributes, TCreationAttributes> | null>}
+     */
+    verifyIfEnterpriseExistsById = async id => Enterprises.findOne({ where: { enterprise_id: id, active: true }})
+        .catch((err) => { throw new Error(err) });
 }
 
 async function CreateTableEnterprises() {

@@ -8,10 +8,10 @@ const addressRoutes = require('./address.routes');
 const skillRoutes = require('./skills.routes');
 const membersCircleEnterprisesRoutes = require('./membersCircleEnterprises.routes');
 const hobbyRoutes = require('./hobbies.routes');
-const catalogRoutes = require('./catalog.routes');
-const elementCatalogRoutes = require('./elementCatalog.routes');
-const feedbackRoutes = require('./feedback.routes');
-const hiringRoutes = require('./hiring.routes');
+//const catalogRoutes = require('./catalog.routes');
+//const elementCatalogRoutes = require('./elementCatalog.routes');
+//const feedbackRoutes = require('./feedback.routes');
+//const hiringRoutes = require('./hiring.routes');
 const { route } = require('./user.routes');
 
 router.get('/', (req, res) => {
@@ -24,9 +24,9 @@ router.use('/address', addressRoutes);
 router.use('/skill', skillRoutes);
 router.use('/membersCircleEnterprises', membersCircleEnterprisesRoutes);
 router.use('/hobby', hobbyRoutes);
-router.use('/catalog', catalogRoutes);
-router.use('/elementCatalog', elementCatalogRoutes);
-router.use('/feedback', feedbackRoutes);
-router.use('/hiring', hiringRoutes);
+//router.use('/catalog', catalogRoutes);
+//router.use('/elementCatalog', elementCatalogRoutes);
+//router.use('/feedback', feedbackRoutes);
+//router.use('/hiring', hiringRoutes);
 
 module.exports = router;
