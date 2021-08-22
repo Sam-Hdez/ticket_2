@@ -1,0 +1,11 @@
+.inicial {
+    display: none;
+}
+
+.gray {
+    color: gray !important;
+}
+
+.personal-content-block {
+    display: block;
+}

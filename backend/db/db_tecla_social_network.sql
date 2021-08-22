@@ -177,7 +177,7 @@ CREATE TABLE applies(
     apply_id INT NOT NULL IDENTITY(1,1),
     hiring_id INT NOT NULL,
     user_id INT NOT NULL,
-    apply_status INT NOT NULL, --Definidas por defualt 1 El solicitante aplica a la vacante | 2 La empresa (nivel admin) acepta la solicitud | 0 La empresa rechaza la solicitud o la elimina en laguna parte del proceso | 3 concluye el proceso con contratación
+    apply_status INT NOT NULL, --Definidas por defualt 1 El solicitante aplica a la vacante | 2 La empresa (nivel admin) acepta la solicitud | 0 La empresa rechaza la solicitud o la elimina en alguna parte del proceso | 3 concluye el proceso con contratación
     user_comments TEXT NOT NULL, --Comentarios sobre el proceso del usuario
     enterprise_comments TEXT NOT NULL, --Comentarios sobre el proceso de la empresa
     active BIT DEFAULT 1,

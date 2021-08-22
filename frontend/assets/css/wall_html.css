@@ -1,0 +1,11 @@
+.inicial {
+    display: none;
+}
+
+.gray {
+    color: gray !important;
+}
+
+.wall-content-block {
+    display: block;
+}

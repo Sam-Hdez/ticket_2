@@ -42,6 +42,10 @@ class Hobby {
         this.hobby_name = data.hobby_name;
     }
 
+    /**
+     * Crea un hobby para un usuario
+     * @returns {Promise<CreateOptions<Model["_attributes"]> extends ({returning: false} | {ignoreDuplicates: true}) ? void : Model<TModelAttributes, TCreationAttributes>>}
+     */
     async createHobby() {
         try {
             const hobbyCreated = await Hobbies.create({
@@ -54,6 +58,12 @@ class Hobby {
         }
     }
 
+    /**
+     * Cambiar el nombre de un hobby
+     * @param id
+     * @param data Objeto con el atributo hobby_name
+     * @returns {Promise<CreateOptions<Model["_attributes"]> extends ({returning: false} | {ignoreDuplicates: true}) ? void : Model<TModelAttributes, TCreationAttributes>>}
+     */
     async updateHobby(id, data) {
         try {
             let hobby_status = await Hobbies.update({
@@ -69,6 +79,11 @@ class Hobby {
         }
     }
 
+    /**
+     * Desactiva los datos de un hobby
+     * @param {string} id
+     * @returns {Promise<CreateOptions<Model["_attributes"]> extends ({returning: false} | {ignoreDuplicates: true}) ? void : Model<TModelAttributes, TCreationAttributes>>}
+     */
     async deleteHobby(id) {
         try {
             let hobby_status = await Hobbies.update({
@@ -85,6 +100,11 @@ class Hobby {
     }
 }
 
+/**
+ * Listar todos los hobbies de un usuario
+ * @param {string} user
+ * @returns {Promise<CreateOptions<Model["_attributes"]> extends ({returning: false} | {ignoreDuplicates: true}) ? void : Model<TModelAttributes, TCreationAttributes>>}
+ */
 async function AllHobbiesUser(user) {
     try {
         let listHobbies = await Hobbies.findAll({ where: { user_id: user, active: 1 }, attributes: ['hobby_id', 'hobby_name'] });
@@ -94,6 +114,11 @@ async function AllHobbiesUser(user) {
     }
 }
 
+/**
+ * Verifica la existencia de un hobby
+ * @param {string} data
+ * @returns {Promise<CreateOptions<Model["_attributes"]> extends ({returning: false} | {ignoreDuplicates: true}) ? void : Model<TModelAttributes, TCreationAttributes>>}
+ */
 async function check_hobby(data) {
     try {
         let hobby = await Hobbies.findByPk(data);
