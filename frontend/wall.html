@@ -16,20 +16,7 @@
 
 <body id="personal" cz-shortcut-listen="true">
 
-    <!--Header with Nav -->
-    <header class="text-right">
-        <form class="text-left search" method="GET">
-            <input name="q" type="text" placeholder="Search..">
-        </form>
-        <div class="second-icon menu-icon">
-            <span><a href="personal-profile.html" title="Profile"><span class="hidden-xs hidden-sm">Profile</span> <i class="fa fa-user" aria-hidden="true"></i></a>
-            </span>
-        </div>
-        <div class="second-icon menu-icon">
-            <span><a href="wall.html" title="Wall"><span class="hidden-xs hidden-sm">Wall</span> <i class="fa fa-database" aria-hidden="true"></i></a>
-            </span>
-        </div>
-    </header>
+    <div id="main-nav"></div>
 
     <!--Left Sidebar with info Profile -->
     <div class="sidebar-nav">
@@ -49,10 +36,10 @@
         <div class="container-fluid container-posts">
             <ul class="nav nav-tabs" role="tablist">
                 <li class="nav-item">
-                    <a id="rate-skills" role="tab" class="nav-link" onclick="show_wall('rate-skills','content-wall-skills')">Califica Skills</a>
+                    <a id="rate-skills" role="tab" class="nav-link cursor-pointer" onclick="show_wall('rate-skills','content-wall-skills')">Califica Skills</a>
                 </li>
                 <li class="nav-item">
-                    <a id="view-hirings" role="tab" class="nav-link gray" onclick="show_wall('view-hirings','content-wall-hirings')">Ver Vacantes</a>
+                    <a id="view-hirings" role="tab" class="nav-link gray cursor-pointer" onclick="show_wall('view-hirings','content-wall-hirings')">Ver Vacantes</a>
                 </li>
             </ul>
 

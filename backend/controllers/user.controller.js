@@ -1,4 +1,4 @@
-const { User, readUser, checkUser, getUser, ListAllUsers, changePassword } = require('../models/users.model');
+const { User, checkUser, getUser, ListAllUsers, changePassword } = require('../models/users.model');
 const bcrypt = require('bcrypt'); //bcrypt para hashear contraseña
 const { generarToken, descubrirToken } = require('../services/jwt.service');
 
