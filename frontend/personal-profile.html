@@ -6,62 +6,164 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personal Profile - Social Network</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Source+Serif+Pro:400,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/fonts/icomoon/style.css">
+    <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/profile.css">
+
     <link rel="stylesheet" href="./assets/bts.5/css/bootstrap.css">
     <link rel="stylesheet" href="./assets/css/style_social_network.css">
     <link rel="stylesheet" href="./assets/fontawesome.5/css/fontawesome.min.css">
     <link rel="stylesheet" href="./assets/fontawesome.5/css/all.min.css">
     <link rel="stylesheet" href="./assets/css/styles_into_personal_profile.css">
+    <script src="./assets/js/config.js "></script>
 </head>
 
-<body id="personal" cz-shortcut-listen="true">
+<body id="personal" cz-shortcut-listen="true" style="height: auto !important">
 
     <div id="main-nav"></div>
 
-    <!--Left Sidebar with info Profile -->
-    <div class="sidebar-nav">
-        <a href="personal-profile.html" title="Profile">
-            <img src="./assets/img/user.jpg" alt="User name" class="img-circle img-user">
-        </a>
-        <h2 class="text-center hidden-xs"><a href="personal-profile.html" title="Profile">My User</a></h2>
-        <p class="text-center user-description hidden-xs">
-            <i>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</i>
-        </p>
-    </div>
+    <div id="sidebar-main"></div>
 
-    <div class="content-posts profile-content">
-        <div class="banner-profile">
+
+    <main class="content-posts profile-content" style="margin-left: 0; height: auto;">
+        <div class="row py-5 px-4">
+            <div class="col-md-3"></div>
+            <div class="col-md-5">
+                <!-- Profile widget -->
+                <div class="bg-white shadow rounded overflow-hidden">
+                    <div class="px-4 cover">
+                        <div class="media align-items-end profile-head" style="max-width: 13rem; display: -webkit-inline-box;">
+                            <div class="profile me-3"><img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80" alt="..." width="130" class="rounded mb-2 img-thumbnail"><a href="#" class="btn btn-outline-dark btn-sm btn-block">Edit profile</a></div>
+                            <div class="media-body mb-5 text-white">
+                                <h4 class="mt-0 mb-0">Roberto Carlos</h4>
+                                <p class="small mb-4"> <i class="fas fa-graduation-cap me-2"></i>Estudiante en Instituto Politécnico Nacional</p>
+                                <p class="small mb-4"> <i class="fas fa-map-marker-alt me-2"></i>Ciudad de México - Magdalena Contreras</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-light p-4 d-flex justify-content-end text-center">
+                        <ul class="list-inline mb-0">
+                            <li class="list-inline-item">
+                                <h5 class="font-weight-bold mb-0 d-block">215</h5><small class="text-muted"> <i class="fas fa-image me-1"></i>Photos</small>
+                            </li>
+                            <li class="list-inline-item">
+                                <h5 class="font-weight-bold mb-0 d-block">745</h5><small class="text-muted"> <i class="fas fa-user me-1"></i>Followers</small>
+                            </li>
+                            <li class="list-inline-item">
+                                <h5 class="font-weight-bold mb-0 d-block">340</h5><small class="text-muted"> <i class="fas fa-user me-1"></i>Following</small>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="px-4 py-3">
+                        <ul class="nav nav-tabs" role="tablist" style="padding-left: 0 !important;">
+                            <li class="nav-item">
+                                <a id="personal-info" role="tab" class="nav-link" onclick="show_content('personal-info','content-personal-info');">Información Personal</a>
+                            </li>
+                            <li class="nav-item">
+                                <a id="personal-skills" role="tab" class="nav-link gray" onclick="show_content('personal-skills','content-personal-skills')">Skills</a>
+                            </li>
+                            <li class="nav-item">
+                                <a id="personal-applies" role="tab" class="nav-link gray" onclick="show_content('personal-applies','content-personal-applies')">Postulaciones</a>
+                            </li>
+                        </ul>
+
+                        <div id="content-personal-info" class="card-post inicial">
+                            <h5>Información Personal</h5>
+                            <div class="p-4 rounded shadow-sm bg-light">
+                                <p class="font-italic mb-0">Web Developer</p>
+                                <p class="font-italic mb-0">Lives in New York</p>
+                                <p class="font-italic mb-0">Photographer</p>
+                            </div>
+                        </div>
+                        <div id="content-personal-skills" class="card-post inicial">
+                            <h5>Skills Personal</h5>
+                            <div class="p-4 rounded shadow-sm bg-light">
+                                <p class="font-italic mb-0">Web Developer</p>
+                                <p class="font-italic mb-0">Lives in New York</p>
+                                <p class="font-italic mb-0">Photographer</p>
+                            </div>
+                        </div>
+                        <div id="content-personal-applies" class="card-post inicial">
+                            <h5>Mis Postulaciones</h5>
+                            <div class="p-4 rounded shadow-sm bg-light">
+                                <p class="font-italic mb-0">Web Developer</p>
+                                <p class="font-italic mb-0">Lives in New York</p>
+                                <p class="font-italic mb-0">Photographer</p>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="py-4 px-4">
+                        <h5>Comentarios</h5>
+
+                        <div class="bg-white p-2">
+                            <div class="d-flex flex-row user-info"><img class="rounded-circle" src="https://i.imgur.com/RpzrMR2.jpg" style="max-width: 40px; margin-right: 5px">
+                                <div class="d-flex flex-column justify-content-start ml-2"><span class="d-block font-weight-bold name">Marry Andrews</span><span class="date text-black-50">Shared publicly - Jan 2020</span></div>
+                            </div>
+                            <div class="mt-2">
+                                <p class="comment-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-light p-2">
+                            <div class="d-flex flex-row align-items-start"><img class="rounded-circle" src="https://i.imgur.com/RpzrMR2.jpg" style="max-width: 40px"><textarea class="form-control ml-1 shadow-none textarea" rows="1"></textarea></div>
+                            <div class="mt-2 text-right"><button class="btn btn-primary btn-sm shadow-none" type="button">Post comment</button><button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button">Cancel</button></div>
+                        </div>
+
+
+                    </div>
+                    <div class="py-4 px-4">
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <h5 class="mb-0">Recent photos</h5><a href="#" class="btn btn-link text-muted">Show all</a>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 mb-2 pe-lg-1"><img src="https://images.unsplash.com/photo-1469594292607-7bd90f8d3ba4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80" alt="" class="img-fluid rounded shadow-sm"></div>
+                            <div class="col-lg-6 mb-2 ps-lg-1"><img src="https://images.unsplash.com/photo-1493571716545-b559a19edd14?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80" alt="" class="img-fluid rounded shadow-sm"></div>
+                            <div class="col-lg-6 pe-lg-1 mb-2"><img src="https://images.unsplash.com/photo-1453791052107-5c843da62d97?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80" alt="" class="img-fluid rounded shadow-sm"></div>
+                            <div class="col-lg-6 ps-lg-1"><img src="https://images.unsplash.com/photo-1475724017904-b712052c192a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80" alt="" class="img-fluid rounded shadow-sm"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="bg-white shadow rounded overflow-hidden">
+                    <div class="px-4 py-4">
+                        <h5>Personas que te pueden interesar</h5>
+                        <div class="card mb-3">
+                            <div class="row g-0">
+                                <div class="col-md-4">
+                                    <img
+                                        class="img-fluid rounded-start"
+                                        src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80"
+                                        alt="...">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h6 class="card-title">Roberto Carlos</h6>
+                                        <button class="btn btn-primary">Ver perfil</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+        <div class="col-md-1"></div>
 
-        <div class="container-fluid container-posts">
-            <ul class="nav nav-tabs" role="tablist">
-                <li class="nav-item">
-                    <a id="personal-info" role="tab" class="nav-link cursor-pointer" onclick="show_content('personal-info','content-personal-info')">Información Personal</a>
-                </li>
-                <li class="nav-item">
-                    <a id="personal-skills" role="tab" class="nav-link gray cursor-pointer" onclick="show_content('personal-skills','content-personal-skills')">Skills</a>
-                </li>
-                <li class="nav-item">
-                    <a id="personal-applies" role="tab" class="nav-link gray cursor-pointer" onclick="show_content('personal-applies','content-personal-applies')">Postulaciones</a>
-                </li>
-            </ul>
+    </main>
 
-            <div id="content-personal-info" class="card-post inicial">
-                <h1>Información Personal</h1>
-            </div>
-            <div id="content-personal-skills" class="card-post inicial">
-                <h1>Skills Personal</h1>
-            </div>
-            <div id="content-personal-applies" class="card-post inicial">
-                <h1>Mis Postulaciones</h1>
-            </div>
-        </div>
-
-    </div>
-
-    <script src="./assets/js/config.js "></script>
     <script src="./assets/js/menu.js"></script>
+    <script type="module" src="assets/js/partitials.js"></script>
     <script src="./assets/js/personal-profile-actions.js"></script>
     <script src="./assets/bts.5/js/bootstrap.bundle.min.js"></script>
+
+    <script src="assets/jquery/jquery-3.6.0.min.js"></script>
+    <script src="assets/js/main.js"></script>
 </body>
 
 </html>
