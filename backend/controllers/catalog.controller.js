@@ -1,4 +1,5 @@
 const { obtenerIdUsser } = require('../services/jwt.service');
+const { } = require('../services/catalogs.service')
 
 
 async function CreateSkillUser(req, res) {
