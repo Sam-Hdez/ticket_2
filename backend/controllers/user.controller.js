@@ -1,11 +1,11 @@
-const { User, readUser, checkUser, getUser, ListAllUsers, changePassword } = require('../models/users.model');
+const { User, checkUser, getUser, ListAllUsers, changePassword } = require('../models/users.model');
 const bcrypt = require('bcrypt'); //bcrypt para hashear contraseña
 const { generarToken, descubrirToken } = require('../services/jwt.service');
 
 async function loginController(req, res) {
     try {
-        //console.log('Login');
-        //console.log(req.body.json);
+        console.log('Login');
+        console.log(req.body);
         //let usuario = JSON.parse(req.body.json);
         let usuario = { email: req.body.email, password: req.body.password }
         let userFromDB = await checkUser(usuario);

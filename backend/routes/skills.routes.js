@@ -5,6 +5,7 @@ const { corsOption } = require('../middlewares/index.middleware');
 const { UserInSession } = require('../middlewares/user.middleware');
 const skill = require('../controllers/user.actions.controller');
 const { SkillExist } = require('../middlewares/skill.middleware');
+const cors = require('cors');
 
 router.post('/create', /*cors(corsOption),*/ UserInSession, skill.CreateSkillUser);
 router.put('/update', /*cors(corsOption),*/ UserInSession, SkillExist, skill.UpdateSkillUser);
