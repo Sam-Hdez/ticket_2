@@ -69,7 +69,7 @@ class Hiring {
      */
     async createHiring() {
         try {
-            const hiringcreate = await Hirings.create ({
+            const Hiringcreate = await Hirings.create ({
                 enterprise_id: this.enterprise_id,
                 hiring_name: this.hiring_name,
                 hiring_description: this.hiring_description,
@@ -87,7 +87,7 @@ class Hiring {
     /**
      * Actualiza datos del hiring                                                                                                                            
      */
-     async updatehiring(id, data) {
+     async updateHiring(id, data) {
         try {
             let hiring_status = await Hirings.update({
                 enterprise_id: this.enterprise_id,
