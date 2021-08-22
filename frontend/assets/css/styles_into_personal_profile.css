@@ -9,3 +9,7 @@
 .personal-content-block {
     display: block;
 }
+
+.cursor-pointer {
+    cursor: pointer;
+}
