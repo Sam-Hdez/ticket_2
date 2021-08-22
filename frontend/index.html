@@ -16,11 +16,13 @@
         <div class="form-logo">
             <p class="text-center"><img src="./assets/img/TECLA_LOGO.png" alt="logo"></p>
         </div>
-        <form>
-            <input type="email" class="form-control" placeholder="Email">
-            <input type="password" class="form-control" placeholder="Password">
+        <form onsubmit="return validateForm(event)">
+            <input id="inputEmail" type="email" class="form-control" placeholder="Email" required>
+            <input id="inputPassword" type="password" class="form-control" placeholder="Password" required>
             <input type="submit" class="btn btn-social" value="Iniciar sesión">
         </form>
+        <div id="message-login" class="checkbox mb-3 p-4">
+        </div>
         <a href="#" class="login-action" title="Forgot password">
             <p>¿Olvidaste tu contraseña?</p>
         </a>
@@ -30,7 +32,9 @@
     </div>
     <!--Close form-box-->
 
-    <script src="./assets/bts.5/js/bootstrap.bundle.min.js"></script>
+    <script src="./assets/js/config.js "></script>
+    <script src="./assets/js/login.js "></script>
+    <script src="./assets/bts.5/js/bootstrap.bundle.min.js "></script>
 </body>
 
 </html>

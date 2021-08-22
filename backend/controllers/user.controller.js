@@ -4,8 +4,8 @@ const { generarToken, descubrirToken } = require('../services/jwt.service');
 
 async function loginController(req, res) {
     try {
-        //console.log('Login');
-        //console.log(req.body.json);
+        console.log('Login');
+        console.log(req.body);
         //let usuario = JSON.parse(req.body.json);
         let usuario = { email: req.body.email, password: req.body.password }
         let userFromDB = await checkUser(usuario);
