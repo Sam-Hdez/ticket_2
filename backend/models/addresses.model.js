@@ -59,6 +59,10 @@ class Address {
         this.city = data.city;
     }
 
+    /**
+     * Crea una nueva dirección en la base de datos con base en el constructor
+     * @returns {Promise<CreateOptions<Model["_attributes"]> extends ({returning: false} | {ignoreDuplicates: true}) ? void : Model<TModelAttributes, TCreationAttributes>>}
+     */
     async createAddress() {
         try {
             const addressCreated = await Addresses.create({
@@ -72,6 +76,12 @@ class Address {
         }
     }
 
+    /**
+     * Actualiza los datos de una dirección
+     * @param {string} id
+     * @param {string} data Objeto con los datos country, city, street, outside_number, inside_number y home_references.
+     * @returns {Promise<CreateOptions<Model["_attributes"]> extends ({returning: false} | {ignoreDuplicates: true}) ? void : Model<TModelAttributes, TCreationAttributes>>}
+     */
     async updateAddress(id, data) {
         try {
             let address_status = await Addresses.update({
@@ -92,6 +102,11 @@ class Address {
         }
     }
 
+    /**
+     * Desactiva los datos de una dirección
+     * @param {string} id
+     * @returns {Promise<CreateOptions<Model["_attributes"]> extends ({returning: false} | {ignoreDuplicates: true}) ? void : Model<TModelAttributes, TCreationAttributes>>}
+     */
     async deleteAddress(id) {
         try {
             let address_status = await Addresses.update({
@@ -108,6 +123,11 @@ class Address {
     }
 }
 
+/**
+ * Listar todas las direcciones de un Usuario
+ * @param {string} user
+ * @returns {Promise<CreateOptions<Model["_attributes"]> extends ({returning: false} | {ignoreDuplicates: true}) ? void : Model<TModelAttributes, TCreationAttributes>>}
+ */
 async function AllAddressUser(user) {
     try {
         let listAddress = await Addresses.findAll({ where: { user_id: user, active: 1 }, attributes: ['address_id', 'country', 'city', 'outside_number', 'inside_number', 'home_references'] });
@@ -117,6 +137,11 @@ async function AllAddressUser(user) {
     }
 }
 
+/**
+ * Verifica la existencia de una dirección
+ * @param {string} data
+ * @returns {Promise<CreateOptions<Model["_attributes"]> extends ({returning: false} | {ignoreDuplicates: true}) ? void : Model<TModelAttributes, TCreationAttributes>>}
+ */
 async function check_address(data) {
     try {
         let address = await Addresses.findByPk(data);

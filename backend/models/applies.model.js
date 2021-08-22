@@ -58,6 +58,10 @@ class Apply {
         this.hiring_id = data.hiring_id;
     }
 
+    /**
+     * Un usuario aplica a una vacante
+     * @returns {Promise<CreateOptions<Model["_attributes"]> extends ({returning: false} | {ignoreDuplicates: true}) ? void : Model<TModelAttributes, TCreationAttributes>>}
+     */
     async createApply() {
         try {
             const applyCreated = await Applies.create({
@@ -71,6 +75,12 @@ class Apply {
         }
     }
 
+    /**
+     * El usuario comenta algo sobre la vacante a la que aplicó
+     * @param id
+     * @param data Objeto con el atributo user_comments
+     * @returns {Promise<CreateOptions<Model["_attributes"]> extends ({returning: false} | {ignoreDuplicates: true}) ? void : Model<TModelAttributes, TCreationAttributes>>}
+     */
     async updateUserComments(id, data) {
         try {
             let apply_status = await Applies.update({
@@ -86,6 +96,12 @@ class Apply {
         }
     }
 
+    /**
+     * La empresa comenta algo sobre un usuario que aplicó a su vacante
+     * @param id
+     * @param data Objeto con los atributos: atributo apply_status: (0) La empresa rechaza la solicitud o la elimina | (2) La empresa acepta la solicitud | (3) Concluye el proceso con contratación. atributo enterprise_comments
+     * @returns {Promise<CreateOptions<Model["_attributes"]> extends ({returning: false} | {ignoreDuplicates: true}) ? void : Model<TModelAttributes, TCreationAttributes>>}
+     */
     async updateEnterpriseComments(id, data) {
         try {
             let apply_state = await Applies.update({
@@ -102,6 +118,11 @@ class Apply {
         }
     }
 
+    /**
+     * Desactiva los datos de una aplicación
+     * @param {string} id
+     * @returns {Promise<CreateOptions<Model["_attributes"]> extends ({returning: false} | {ignoreDuplicates: true}) ? void : Model<TModelAttributes, TCreationAttributes>>}
+     */
     async deleteApply(id) {
         try {
             let apply_status = await Applies.update({
@@ -118,6 +139,11 @@ class Apply {
     }
 }
 
+/**
+ * Listar todas las aplicaciones de un usuario
+ * @param {string} user
+ * @returns {Promise<CreateOptions<Model["_attributes"]> extends ({returning: false} | {ignoreDuplicates: true}) ? void : Model<TModelAttributes, TCreationAttributes>>}
+ */
 async function AllAppliesUser(user) {
     try {
         let listApplies = await Applies.findAll({ where: { user_id: user, active: 1 } });
