@@ -47,6 +47,10 @@ class Skill {
         this.skill_name = data.skill_name;
     }
 
+    /**
+     * Crea una skill para un usuario
+     * @returns {Promise<CreateOptions<Model["_attributes"]> extends ({returning: false} | {ignoreDuplicates: true}) ? void : Model<TModelAttributes, TCreationAttributes>>}
+     */
     async createSkill() {
         try {
             const skillCreated = await Skills.create({
@@ -60,6 +64,12 @@ class Skill {
         }
     }
 
+    /**
+     * Actualización de skill
+     * @param id
+     * @param data Objeto con los atributos type_skill and skill_name
+     * @returns {Promise<CreateOptions<Model["_attributes"]> extends ({returning: false} | {ignoreDuplicates: true}) ? void : Model<TModelAttributes, TCreationAttributes>>}
+     */
     async updateSkill(id, data) {
         try {
             let skill_status = await Skills.update({
@@ -76,6 +86,11 @@ class Skill {
         }
     }
 
+    /**
+     * Desactiva los datos de una skill
+     * @param {string} id
+     * @returns {Promise<CreateOptions<Model["_attributes"]> extends ({returning: false} | {ignoreDuplicates: true}) ? void : Model<TModelAttributes, TCreationAttributes>>}
+     */
     async deleteSkill(id) {
         try {
             let skill_status = await Skills.update({
@@ -92,6 +107,11 @@ class Skill {
     }
 }
 
+/**
+ * Listar todas las skills de un usuario
+ * @param {string} user
+ * @returns {Promise<CreateOptions<Model["_attributes"]> extends ({returning: false} | {ignoreDuplicates: true}) ? void : Model<TModelAttributes, TCreationAttributes>>}
+ */
 async function AllSkillsUser(user) {
     try {
         let listSkill = await Skills.findAll({ where: { user_id: user, active: 1 }, attributes: ['skill_id', 'type_skill', 'skill_name'] });
@@ -101,6 +121,11 @@ async function AllSkillsUser(user) {
     }
 }
 
+/**
+ * Obtener todos los ids de las skills de un usuario
+ * @param {string} user
+ * @returns {Promise<CreateOptions<Model["_attributes"]> extends ({returning: false} | {ignoreDuplicates: true}) ? void : Model<TModelAttributes, TCreationAttributes>>}
+ */
 async function AllSkillsUserIds(user) {
     try {
         let listSkill = await Skills.findAll({ where: { user_id: user, active: 1 }, attributes: ['skill_id'] });
@@ -114,6 +139,11 @@ async function AllSkillsUserIds(user) {
     }
 }
 
+/**
+ * Verifica la existencia de una skill
+ * @param {string} data
+ * @returns {Promise<CreateOptions<Model["_attributes"]> extends ({returning: false} | {ignoreDuplicates: true}) ? void : Model<TModelAttributes, TCreationAttributes>>}
+ */
 async function check_skill(data) {
     try {
         let skill = await Skills.findByPk(data);
