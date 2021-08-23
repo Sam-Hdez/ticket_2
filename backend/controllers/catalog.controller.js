@@ -1,54 +1,69 @@
-const { obtenerIdUsser } = require('../services/jwt.service');
-const { } = require('../services/catalogs.service')
+const { newCatalog, editCatalog, deleteCatalog, CatalogById, CatalogByName, AllCatalog } = require('../services/catalogs.service')
 
-
-async function CreateSkillUser(req, res) {
+async function CreateCatalog(req, res) {
     try {
-        const token = req.headers.authorization.split(' ')[1];
-        let user = await obtenerIdUsser(token);
-
-        let skill = { user_id: user, type_skill: req.body.type_skill, skill_name: req.body.skill_name }
-        let status_skill = await createSkill(skill);
-        res.status(200).json({ message: 'Skill creada: ' + status_skill.skill_name });
+        let catalog = { enterprise_id: req.boy.enterprise_id, catalog_name: req.body.catalog_name }
+        let status_catalog = await newCatalog(catalog);
+        res.status(200).json({ message: 'Catalogo creado: ' + status_catalog.catalog_name });
     } catch (error) {
-        res.status(502).json({ message: 'Error al crear skill: ' + error.message });;
+        res.status(502).json({ message: 'Error al crear catalogo: ' + error.message });;
     }
 }
 
-async function UpdateSkillUser(req, res) {
+async function UpdateCatalog(req, res) {
     try {
-        let skill = { skill_id: req.body.skill_id, type_skill: req.body.type_skill, skill_name: req.body.skill_name }
-        let status_skill = await updateSkill(skill);
-        res.status(200).json({ message: 'Skill actualizada: ' + status_skill.skill_name });
+        let catalog = { catalog_id: req.body.catalog_id, catalog_name: req.body.catalog_name }
+        let status_catalog = await editCatalog(catalog);
+        res.status(200).json({ message: 'Catalogo actualizado: ' + status_catalog.catalog_name });
     } catch (error) {
-        res.status(502).json({ message: 'Error al actualizar skill: ' + error.message });;
+        res.status(502).json({ message: 'Error al actualizar los catalogos: ' + error.message });;
     }
 }
 
-async function DeleteSkillUser(req, res) {
+async function DeleteCatalog(req, res) {
     try {
-        let skill = { skill_id: req.body.skill_id, type_skill: req.body.type_skill, skill_name: req.body.skill_name }
-        let status_skill = await dropSkill(skill);
-        res.status(200).json({ message: 'Skill eliminada' });
+        let catalog = { catalog_id: req.body.catalog_id, catalog_name: req.body.catalog_name }
+        let status_catalog = await deleteCatalog(catalog);
+        res.status(200).json({ message: 'Catalogo eliminado' + status_catalog.catalog_name});
     } catch (error) {
-        res.status(502).json({ message: 'Error al eliminar skill: ' + error.message });;
+        res.status(502).json({ message: 'Error al eliminar el catalogo: ' + error.message });;
     }
 }
 
-async function AllSkillUser(req, res) {
+async function catalogbyid(req, res) {
     try {
-        const token = req.headers.authorization.split(' ')[1];
-        let user = await obtenerIdUsser(token);
-        let status_skill = await allSkill(user);
-        res.status(200).json({ message: 'Lista de skills', data: status_skill });
+        const id = req.body.catalog_id;
+        let status_catalog = await CatalogById(id);
+        res.status(200).json({ message: 'Lista de catalogos', data: status_catalog });
     } catch (error) {
-        res.status(502).json({ message: 'Error al listar skills: ' + error.message });;
+        res.status(502).json({ message: 'Error al listar los catalogos: ' + error.message });;
+    }
+}
+
+async function catalogbyname(req, res) {
+    try {
+        const name = req.body.catalog_name;
+        let status_catalog = await CatalogByName(name);
+        res.status(200).json({ message: 'Lista de catalogos', data: status_catalog });
+    } catch (error) {
+        res.status(502).json({ message: 'Error al listar los catalogos: ' + error.message });;
+    }
+}
+
+async function catalogall(req, res) {
+    try {
+        let status_catalog = await AllCatalog();
+        res.status(200).json({ message: 'Lista de catalogos', data: status_catalog });
+    } catch (error) {
+        res.status(502).json({ message: 'Error al listar los catalogos: ' + error.message });;
     }
 }
 
 module.exports = {
-    AllSkillUser,
-    DeleteSkillUser,
-    UpdateSkillUser,
-    CreateSkillUser
+    CreateCatalog,
+    UpdateCatalog,
+    DeleteCatalog,
+    catalogbyid,
+    catalogbyname,
+    catalogall
 }

@@ -81,8 +81,6 @@ class Feedback {
                 skill_id: this.skill_id,
                 points: this.points,
                 feedback: this.feedback,
-                visibility: this.visibility,
-                is_general_feedback: this.is_general_feedback
             });
             return feedbackcreate;
         } catch (error) {

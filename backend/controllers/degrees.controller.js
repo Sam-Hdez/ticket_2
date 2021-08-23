@@ -1,5 +1,3 @@
-
-
 const degreesService = require('../services/degrees.service');
 
 async function createDegrees(req, res) {

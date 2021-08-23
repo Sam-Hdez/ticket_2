@@ -1,5 +1,3 @@
-
-
 const membersCircleEnterprisesService = require('../services/membersCircleEnterprises.service');
 
 async function createMemberCircleEnterprise(req, res) {
