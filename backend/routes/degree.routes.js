@@ -11,6 +11,10 @@ router.get('/:id',
     degreeController.getDegreesById
 );
 
+router.get('/user/:id',
+    degreeController.getDegreesByUserId
+);
+
 router.post('/',
     degreeController.createDegrees
 );

@@ -44,10 +44,24 @@ const getDegreeById = (id) => {
     }
 }
 
+const getDegreeByUserId = async (id) => {
+    try {
+        const degreesUser = await degrees.getDegreeByUserId(id)
+        if(degreesUser !== null) {
+            return degreesUser;
+        } return {
+            error: `El usuario con el id ${id} no tiene ningún grado.`
+        }
+    } catch (e) {
+        throw new Error(e);
+    }
+}
+
 module.exports = {
     newDegree,
     updateDegree,
     deleteDegree,
     getDegrees,
-    getDegreeById
+    getDegreeById,
+    getDegreeByUserId
 }

@@ -18,7 +18,8 @@ async function loginController(req, res) {
 
 async function registerController(req, res) {
     try {
-        let user = new User({ email: req.body.email, first_name: req.body.nombre, last_name: req.body.apellidos, encrypted_password: req.body.password });
+        console.log(req.file);
+        let user = new User({ email: req.body.email, first_name: req.body.nombre, last_name: req.body.apellidos, encrypted_password: req.body.password, image: 'http://localhost:3000/uploads/'+req.file.filename});
         const createResult = await user.createUser();
         res.status(200).json({ message: 'Usuario creado ' + createResult.dataValues.email });
     } catch (error) {

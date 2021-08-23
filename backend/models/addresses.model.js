@@ -130,14 +130,15 @@ class Address {
  */
 async function AllAddressUser(user) {
     try {
-        let listAddress = await Addresses.findAll({ where: { user_id: user, active: 1 }, attributes: ['address_id', 'country', 'city', 'outside_number', 'inside_number', 'home_references'] });
+        let listAddress = await Addresses.findOne({ where: { user_id: user, active: 1 }, attributes: ['address_id', 'country', 'city', 'outside_number', 'inside_number', 'home_references'] });
         //La respuesta solo entrega los atributos especificados
         /*let list_addresses = [];
         listAddress.forEach(address => {
             list_addresses.push(address.dataValues);
         });
         return list_addresses;*/
-        return listAddress;
+        if(listAddress) return listAddress;
+        return {};
     } catch (error) {
         throw new Error('Error en la función AllAddressUser: ' + error.message);
     }
