@@ -7,12 +7,11 @@
     <br />
   </p>
   <p>Autores:
-    <br/>
-    <a href="https://github.com/Sam-Hdez">Github Samuel</a>
-    <br/>
     <a href="https://github.com/ELCapiPrice">Github Miguel</a>
     <br/>
     <a href="https://github.com/Roberto881">Github Roberto</a>
+    <br/>
+    <a href="https://github.com/Sam-Hdez">Github Samuel</a>
   </p>
 
 <details open="open">
