@@ -30,7 +30,7 @@ router.delete('/drop',
     /*cors(corsOption),*/
     UserInSession,
     elementCatalogMiddleware.validateDeleteElementCatalog,
-    elementCatalogController.DeleteCatalog
+    elementCatalogController.DeleteElementCatalog
 );
 
 /* PUT http://localhost:3000/elementCatalog/ */
