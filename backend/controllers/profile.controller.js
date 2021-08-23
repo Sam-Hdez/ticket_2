@@ -14,6 +14,19 @@ async function personalProfileController(req, res) {
     }
 }
 
+async function personalProfileByIdController(req, res) {
+    try {
+        const token = req.headers.authorization.split(' ')[1];
+        let id = req.params.id;
+        let personal_profile = await personalProfile(id);
+
+        res.status(200).json({ message: 'Perfil personal', data: personal_profile });
+    } catch (e) {
+        res.status(400).json({ message: `Sistema seguro, error en autenticación: ${error.message}` });
+    }
+}
+
 module.exports = {
     personalProfileController,
+    personalProfileByIdController
 }

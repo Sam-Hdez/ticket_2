@@ -32,6 +32,9 @@ router.put('/changePassword', /*cors(corsOption),*/ checkDatosChangePass, user.r
 router.get('/checkSession', cors(corsOption), UserInSession, check_session);
 
 router.get('/profile', UserInSession, profile.personalProfileController);
+
+router.get('/profile/:id', UserInSession, profile.personalProfileByIdController);
+
 //router.get('/profile/:id', UserInSession, );
 
 module.exports = router;
