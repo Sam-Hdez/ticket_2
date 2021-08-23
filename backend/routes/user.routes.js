@@ -13,7 +13,7 @@ router.post('/register', /*cors(corsOption),*/ checkDatosAlta, user.registerCont
 router.get('/list-users', /*cors(corsOption),*/ LevelAdmin, UserInSession, user.listUsers);
 router.put('/edit/:id', /*cors(corsOption),*/ LevelAdmin, UserInSession, user.editController);
 router.delete('/delete/:id', /*cors(corsOption),*/ LevelAdmin, UserInSession, user.deleteController);
-router.put('/changePassword', /*cors(corsOption),*/ checkDatosChangePass, user.recoverPassword); //Añadir validación con JOI
+router.put('/changePassword', /*cors(corsOption),*/ checkDatosChangePass, user.recoverPassword);
 
 router.get('/checkSession', cors(corsOption), UserInSession, check_session);
 
