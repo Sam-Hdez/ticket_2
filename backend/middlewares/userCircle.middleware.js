@@ -1,4 +1,3 @@
-
 const Joi = require('joi');
 const { UserCircleDTO } = require('../dto/userCircleDTO');
 

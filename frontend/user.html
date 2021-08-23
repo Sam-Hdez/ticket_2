@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>User - Social Network</title>
+  <meta name="description" content="Description"/>
+  <meta name="robots" content="index, follow"/>
+  <meta name="author" content="Author">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Source+Serif+Pro:400,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/fonts/icomoon/style.css">
+  <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/profile.css">
+
+  <link rel="stylesheet" href="./assets/bts.5/css/bootstrap.css">
+  <link rel="stylesheet" href="./assets/css/style_social_network.css">
+  <link rel="stylesheet" href="./assets/fontawesome.5/css/fontawesome.min.css">
+  <link rel="stylesheet" href="./assets/fontawesome.5/css/all.min.css">
+  <link rel="stylesheet" href="./assets/css/styles_into_personal_profile.css">
+  <script src="./assets/js/config.js "></script>
+
+</head>
+<body>
+
+<div id="main-nav"></div>
+
+<div id="sidebar-main"></div>
+
+<main class="content-posts profile-content" style="margin-left: 0; height: auto;">
+  <div class="row py-5 px-4">
+    <div class="col-md-3"></div>
+    <div class="col-md-5">
+      <!-- Profile widget -->
+      <div class="bg-white shadow rounded overflow-hidden">
+        <div class="px-4 cover">
+          <div class="media align-items-end profile-head" style="max-width: 13rem; display: -webkit-inline-box;">
+            <div class="profile me-3"><img id="userPhoto" src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80" alt="..." width="130" class="rounded mb-2 img-thumbnail"><a href="#" class="btn btn-outline-dark btn-sm btn-block">Edit profile</a></div>
+            <div class="media-body mb-5 text-white">
+              <h4 id="userName" class="mt-0 mb-0">Roberto Carlos</h4>
+              <p id="userInstitute" class="small mb-4"> <i class="fas fa-graduation-cap me-2"></i>Estudiante en Instituto Politécnico Nacional</p>
+              <p id="userCity" class="small mb-4"> <i class="fas fa-map-marker-alt me-2"></i>Ciudad de México - Magdalena Contreras</p>
+            </div>
+          </div>
+        </div>
+        <div class="bg-light p-4 d-flex justify-content-end text-center">
+          <ul class="list-inline mb-0">
+            <li class="list-inline-item">
+              <h5 class="font-weight-bold mb-0 d-block">215</h5><small class="text-muted"> <i class="fas fa-image me-1"></i>Photos</small>
+            </li>
+            <li class="list-inline-item">
+              <h5 class="font-weight-bold mb-0 d-block">745</h5><small class="text-muted"> <i class="fas fa-user me-1"></i>Followers</small>
+            </li>
+            <li class="list-inline-item">
+              <h5 class="font-weight-bold mb-0 d-block">340</h5><small class="text-muted"> <i class="fas fa-user me-1"></i>Following</small>
+            </li>
+          </ul>
+        </div>
+        <div class="px-4 py-3">
+          <ul class="nav nav-tabs" role="tablist" style="padding-left: 0 !important;">
+            <li class="nav-item">
+              <a id="personal-info" role="tab" class="nav-link" onclick="show_content('personal-info','content-personal-info');">Información Personal</a>
+            </li>
+            <li class="nav-item">
+              <a id="personal-skills" role="tab" class="nav-link gray" onclick="show_content('personal-skills','content-personal-skills')">Skills</a>
+            </li>
+            <li class="nav-item">
+              <a id="personal-applies" role="tab" class="nav-link gray" onclick="show_content('personal-applies','content-personal-applies')">Postulaciones</a>
+            </li>
+          </ul>
+
+          <div id="content-personal-info" class="card-post inicial">
+            <h5>Información Personal</h5>
+            <div id="userInfo" class="p-4 rounded shadow-sm bg-light text-dark">
+            </div>
+          </div>
+          <div id="content-personal-skills" class="card-post inicial">
+            <h5>Skills Personal</h5>
+            <div class="p-4 rounded shadow-sm bg-light">
+              <p class="font-italic mb-0">Habilidades</p>
+            </div>
+          </div>
+          <div id="content-personal-applies" class="card-post inicial">
+            <h5>Mis Postulaciones</h5>
+            <div class="p-4 rounded shadow-sm bg-light">
+              <p class="font-italic mb-0">Web Developer</p>
+              <p class="font-italic mb-0">Lives in New York</p>
+              <p class="font-italic mb-0">Photographer</p>
+            </div>
+          </div>
+
+        </div>
+        <div class="py-4 px-4">
+          <h5>Comentarios</h5>
+
+          <div class="bg-white p-2">
+            <div class="d-flex flex-row user-info"><img class="rounded-circle" src="https://i.imgur.com/RpzrMR2.jpg" style="max-width: 40px; margin-right: 5px">
+              <div class="d-flex flex-column justify-content-start ml-2"><span class="d-block font-weight-bold name">Marry Andrews</span><span class="date text-black-50">Shared publicly - Jan 2020</span></div>
+            </div>
+            <div class="mt-2">
+              <p class="comment-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            </div>
+          </div>
+
+          <div class="bg-light p-2">
+            <div class="d-flex flex-row align-items-start"><img class="rounded-circle" src="https://i.imgur.com/RpzrMR2.jpg" style="max-width: 40px"><textarea class="form-control ml-1 shadow-none textarea" rows="1"></textarea></div>
+            <div class="mt-2 text-right"><button class="btn btn-primary btn-sm shadow-none" type="button">Post comment</button><button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button">Cancel</button></div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-1"></div>
+</main>
+
+
+<script src="./assets/js/menu.js"></script>
+<script type="module" src="assets/js/partitials.js"></script>
+<script src="./assets/js/personal-profile-actions.js"></script>
+<script src="./assets/bts.5/js/bootstrap.bundle.min.js"></script>
+
+<script src="assets/jquery/jquery-3.6.0.min.js"></script>
+<script src="assets/js/sidebar.js"></script>
+<script src="assets/js/user.js"></script>
+</body>
+</html>

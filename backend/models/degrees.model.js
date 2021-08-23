@@ -129,6 +129,27 @@ class Degree {
             throw new Error(e);
         }
     }
+
+    async getDegreeByUserId(id) {
+        try {
+            return Degrees.findOne({
+                where: {
+                    user_id: id,
+                    active: true
+                },
+                attributes: {
+                    exclude: [
+                        'updatedAt',
+                        'createdAt',
+                        'active'
+                    ]
+                }
+            });
+        } catch (e) {
+            throw new Error(e);
+        }
+    }
+
 }
 
 

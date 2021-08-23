@@ -49,10 +49,22 @@ async function getDegreesById(req, res) {
     }
 }
 
+async function getDegreesByUserId(req, res) {
+    try {
+        const id = req.params.id;
+        console.log(id);
+        const degree = await degreesService.getDegreeByUserId(id);
+        res.status(201).json(degree);
+    } catch (e) {
+        res.status(502).send(e.message);
+    }
+}
+
 module.exports = {
     createDegrees,
     editDegrees,
     deleteDegrees,
     getDegrees,
-    getDegreesById
+    getDegreesById,
+    getDegreesByUserId
 }

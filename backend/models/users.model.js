@@ -91,6 +91,7 @@ class User {
         this.last_name = data.last_name;
         this.email = data.email;
         this.encrypted_password = data.encrypted_password;
+        this.image = data.image;
     }
 
     async createUser() {
@@ -100,7 +101,8 @@ class User {
                 first_name: this.first_name,
                 last_name: this.last_name,
                 email: this.email,
-                encrypted_password: await bcrypt.hashSync(this.encrypted_password + process.env.STRING_STRONG, saltRounds)
+                encrypted_password: await bcrypt.hashSync(this.encrypted_password + process.env.STRING_STRONG, saltRounds),
+                profile_photo: this.image || null
             });
             return userCreated;
         } catch (error) {

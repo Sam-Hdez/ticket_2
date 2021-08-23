@@ -16,11 +16,12 @@
         <div class="form-logo">
             <p class="text-center"><img src="./assets/img/TECLA_LOGO.png" alt="logo"></p>
         </div>
-        <form onsubmit="registerUser(event);">
-            <input id="inputName" type="text" class="form-control" placeholder="Nombre(s)">
-            <input id="inputLastName" type="text" class="form-control" placeholder="Apellidos">
-            <input id="inputEmail" type="email" class="form-control" placeholder="Email">
-            <input id="inputPass" type="password" class="form-control" placeholder="Contraseña">
+        <form action="http://localhost:3000/user/register" method="post" enctype="multipart/form-data"> <!--onsubmit="registerUser(event);-->
+            <input id="inputName" name="nombre" type="text" class="form-control" placeholder="Nombre(s)">
+            <input id="inputLastName" name="apellidos" type="text" class="form-control" placeholder="Apellidos">
+            <input id="inputEmail" name="email" type="email" class="form-control" placeholder="Email"/>
+            <input id="inputProfile" name="image" type="file" accept="image/png, image/jpeg, image/gif"/>
+            <input id="inputPass" name="password" type="password" class="form-control" placeholder="Contraseña">
             <input type="submit" class="btn btn-social" value="Regitrarme">
         </form>
         <a href="index.html" class="login-action" title="login">

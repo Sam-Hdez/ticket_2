@@ -6,6 +6,7 @@ const errorHandler = require('./helpers/errorHandler');
 
 require('dotenv').config();
 const cors = require('cors');
+const path = require("path");
 
 //MIDDLEWARE GLOBALES
 app.use(express.urlencoded({ extended: true }));
@@ -15,6 +16,8 @@ app.use(require('morgan')('dev'));
 
 all_routes = require('./routes/all.routes');
 app.use(all_routes);
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 // El manejador de errores debe ir abajo de las rutas,
 // suponemos que si ninguna ruta llega a manejar la petición
@@ -45,6 +48,7 @@ server()
         console.log(`Error al iniciar la aplicación (REVISA EL ERROR DE LA APLICACIÓN): \n${error}`);
         console.log(`---------------------------------------`);
     });
+
 
 
 async function assertDatabaseConnection() {
