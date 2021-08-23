@@ -43,5 +43,5 @@ module.exports = {
     newElementCatalog,
     editElementCatalog,
     deleteElementCatalog,
-    ElementCatalogByName
+    ElementCatalogById
 }

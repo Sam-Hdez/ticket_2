@@ -128,6 +128,10 @@ const updateProfile = async () => {
     profile.renderAddress(userData.addresses_info.city, 'userCity');
     profile.renderUsers(usersData, 'usersKnow');
     profile.renderInfo(userData.personal_info, 'userInfo');
+
+    profile.renderPhoto(userData.personal_info.profile_photo, 'userImageSidebar');
+    profile.renderName(`${userData.personal_info.first_name} ${userData.personal_info.last_name}`, 'userNameSidebar');
+    profile.renderName(`${userData.personal_info.email}`, 'userEmailSidebar');
 }
 
 updateProfile();
