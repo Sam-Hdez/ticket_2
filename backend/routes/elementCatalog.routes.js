@@ -2,37 +2,43 @@ const express = require('express');
 const router = express.Router();
 
 const { corsOption } = require('../middlewares/index.middleware');
-const elementCatalogController = require('../controllers/elementCatalog.controller');
-const { elementCatalogMiddleware } = require('../middlewares/elementCatalog.middleware');
+const { ElementCatalogController } = require('../controllers/elementCatalog.controller');
+const { ElementCatalogMiddleware } = require('../middlewares/elementCatalog.middleware');
+const { UserInSession } = require('../middlewares/user.middleware');
 
-const elementCatalogMiddleware = new elementCatalogMiddleware();
+const elementCatalogMiddleware = new ElementCatalogMiddleware();
+const elementCatalogController = new ElementCatalogController();
 
 /* POST http://localhost:3000/elementCatalog/ */
 router.post('/create',
     /*cors(corsOption),*/
-    catalogMiddleware.validateCreateElementCatalog,
-    catalogController.createElementCatalog
+    UserInSession,
+    elementCatalogMiddleware.validateCreateElementCatalog,
+    elementCatalogController.CreateElementCatalog
 );
 
 /* GET http://localhost:3000/elementCatalog/ */
-router.get('/update',
+router.put('/update',
     /*cors(corsOption),*/
-    catalogMiddleware.validateGetElementCatalog,
-    catalogController.getElementCatalog
+    UserInSession,
+    elementCatalogMiddleware.validateEditElementCatalog,
+    elementCatalogController.UpdateElementCatalog
 );
 
 /* DELETE http://localhost:3000/elementCatalog/ */
 router.delete('/drop',
     /*cors(corsOption),*/
-    catalogMiddleware.validateDeleteElementCatalog,
-    catalogController.removeCatalog
+    UserInSession,
+    elementCatalogMiddleware.validateDeleteElementCatalog,
+    elementCatalogController.DeleteCatalog
 );
 
 /* PUT http://localhost:3000/elementCatalog/ */
-router.put('/list-all',
+router.get('/list-all',
     /*cors(corsOption),*/
-    catalogMiddleware.validateEditElementCatalog,
-    catalogController.editElementCatalog
+    UserInSession,
+    elementCatalogMiddleware.validateGetElementCatalog,
+    elementCatalogController.elementcatalogbyname
 );
 
 module.exports = router;

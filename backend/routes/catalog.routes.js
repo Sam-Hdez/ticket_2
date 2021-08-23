@@ -2,37 +2,45 @@ const express = require('express');
 const router = express.Router();
 
 const { corsOption } = require('../middlewares/index.middleware');
-const catalogController = require('../controllers/catalog.controller');
+const { CatalogController } = require('../controllers/catalog.controller');
 const { CatalogMiddleware } = require('../middlewares/catalog.middleware');
+const { UserInSession } = require('../middlewares/user.middleware');
 
 const catalogMiddleware = new CatalogMiddleware();
+const catalogController = new CatalogController();
 
 /* POST http://localhost:3000/catalog/ */
 router.post('/create',
     /*cors(corsOption),*/
+    UserInSession,
     catalogMiddleware.validateCreateCatalog,
-    catalogController.createCatalog
+    catalogController.CreateCatalog
 );
 
 /* GET http://localhost:3000/catalog/ */
-router.get('/update',
+router.put('/update',
     /*cors(corsOption),*/
-    catalogMiddleware.validateGetCatalog,
-    catalogController.getCatalog
+    UserInSession,
+    catalogMiddleware.validateEditCatalog,
+    catalogController.UpdateCatalog
 );
 
 /* DELETE http://localhost:3000/catalog/ */
 router.delete('/drop',
     /*cors(corsOption),*/
+    UserInSession,
     catalogMiddleware.validateDeleteCatalog,
-    catalogController.removeCatalog
+    catalogController.DeleteCatalog
 );
 
 /* PUT http://localhost:3000/catalog/ */
-router.put('/list-all',
+router.get('/list-all',
     /*cors(corsOption),*/
-    catalogMiddleware.validateEditCatalog,
-    catalogController.editCatalog
+    UserInSession,
+    catalogMiddleware.validateGetCatalog,
+    catalogController.catalogbyid,
+    catalogController.catalogbyname,
+    catalogController.catalogall
 );
 
 module.exports = router;

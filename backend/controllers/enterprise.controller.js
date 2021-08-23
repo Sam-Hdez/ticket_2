@@ -1,6 +1,5 @@
 const enterpriseService = require('../services/enterprise.service');
 
-
 class EnterpriseController {
     async createEnterprise(req, res) {
         try {
