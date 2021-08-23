@@ -13,6 +13,19 @@ class Profile {
         }
     }
 
+    getUserInfo2 = async () => {
+        try {
+            const bearer = this.getBearer();
+            const apiCall = await getData('user/profile', 'get', null, {
+                Authorization: `Bearer ${bearer}`
+            });
+            if(apiCall?.error) throw new Error(apiCall.error);
+            return apiCall.data;
+        } catch (e) {
+            alert('Error al cargar los datos del usuario. ' + e.message);
+        }
+    }
+
     getDegreeInfo = async (id) => {
         try {
             const bearer = this.getBearer();
@@ -49,8 +62,10 @@ class Profile {
     }
 
     renderPhoto = (url, label) => {
+        console.log(label)
         const photoLabel = document.getElementById(label);
         if(photoLabel && url !== null) {
+            console.log("xd");
             photoLabel.src = url;
         }
     }
@@ -126,6 +141,12 @@ const updateProfile = async () => {
         profile.renderInstitute(degreeData.institute, 'userInstitute');
         profile.renderAddress(userData.addresses_info.city, 'userCity');
         profile.renderInfo(userData.personal_info, 'userInfo');
+
+        const userData2 = await profile.getUserInfo2();
+        console.log(userData2);
+        profile.renderPhoto(userData2.personal_info.profile_photo, 'userImageSidebar');
+        profile.renderName(`${userData2.personal_info.first_name} ${userData2.personal_info.last_name}`, 'userNameSidebar');
+        profile.renderName(`${userData2.personal_info.email}`, 'userEmailSidebar');
     }
 }
 

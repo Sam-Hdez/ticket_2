@@ -9,9 +9,9 @@ sidebarTemplate.innerHTML = `
 </div>
 <div class="side-inner">
   <div class="profile">
-    <img src="assets/img/user.jpg" alt="Imagen de Perfil" class="img-fluid">
-    <h3 class="name">Debby Williams</h3>
-    <span class="country">New York, USA</span>
+    <img id="userImageSidebar" src="assets/img/user.jpg" alt="Imagen de Perfil" class="img-fluid">
+    <h3 id="userNameSidebar" class="name">Debby Williams</h3>
+    <span id="userEmailSidebar" class="country">New York, USA</span>
   </div>
 
   <div class="counter d-flex justify-content-center">
